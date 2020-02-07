@@ -4,10 +4,7 @@ const htmlPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     // 入口文件
-    entry: {
-        main:'./src/main.js',
-        main2:'./src/main2.js' //这里新添加一个入口文件
-    },
+    entry: './src/app.js',
     // 输出
     output: {
         // 单个1 - 打包路径
@@ -21,9 +18,59 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            }
+                test: /\.js$/,
+                use: 'babel-loader',
+                exclude: /node_modules/
+            },
+            // {
+            //     test: /\.(css|less)$/,
+            //     use: ['style-loader', 'less-loader', 'css-loader'],
+            //     // exclude: /node_modules/
+            // },
+            {
+                test: /\.(css|less)$/,
+                exclude: /node_modules/,
+                use: [
+                    require.resolve('style-loader'),
+                    {
+                        loader: require.resolve('css-loader'),
+                        options: {
+                            importLoaders: 1,
+                            modules: true,
+                        },
+                    },
+                    // {
+                    //     loader: require.resolve('postcss-loader'),
+                    //     options: {
+                    //         ident: 'postcss',
+                    //         plugins: () => [
+                    //             require('postcss-flexbugs-fixes'),
+                    //             autoprefixer({
+                    //                 browsers: [
+                    //                     '>1%',
+                    //                     'last 4 versions',
+                    //                     'Firefox ESR',
+                    //                     'not ie < 9', // React doesn't support IE8 anyway
+                    //                 ],
+                    //                 flexbox: 'no-2009',
+                    //             }),
+                    //         ],
+                    //     },
+                    // },
+                    {
+                        loader: require.resolve('less-loader'), // compiles Less to LESS
+                        // options: {
+                        //     importLoaders: 2,
+                        //     modules: true,
+                        //     // getLocalIdent: getCSSModuleLocalIdent,
+                        // },
+                    },
+                ],
+            },
+            // {
+            //     test: /\.cm\.styl$/,
+            //     loader: 'style-loader!css-loader?modules&camelCase&localIdentName=[local]-[hash:base64:5]!stylus-loader'
+            // }
         ]
     },
     // 插件
@@ -31,17 +78,13 @@ module.exports = {
         // JS压缩插件
         new uglify(),
         new htmlPlugin({
-            minify:{ //是对html文件进行压缩
-                removeAttributeQuotes:true  //removeAttrubuteQuotes是却掉属性的双引号。
-            },
-            hash:true, //为了开发中js有缓存效果，所以加入hash，这样可以有效避免缓存JS。
-            template:'./src/index.html' //是要打包的html模版路径和文件名称。
+            template: 'public/index.html'
         })
     ],
     // 配置开发服务功能
     devServer: {
         // 设置基本目录结构
-        contentBase: path.resolve(__dirname, '../dist'),
+        contentBase: './dist',
         host: 'localhost',
         // 是否开启服务端
         compress: true,
