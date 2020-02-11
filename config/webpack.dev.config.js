@@ -2,6 +2,9 @@ const path = require('path');
 const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
+
 module.exports = {
   mode: 'development',
   // 入口文件
@@ -19,15 +22,44 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.js|jsx$/,
         use: 'babel-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.(less|css)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
-        sideEffects: true,
+        test: /\.(css|less)$/,
+        // exclude: /node_modules\.(css|less)/,
+        exclude: /node_modules/,
+        use: [
+          // MiniCssExtractPlugin.loader, // 打包成单独引入的样式表
+          'style-loader', //  直接生成style标签
+          // 'css-loader?modules&localIndentName=[name]_[local]_[hash:base64:5]',
+          {
+            loader: require.resolve('css-loader'),
+            options: {
+              importLoaders: 1,
+              // modules: true,
+              modules: {
+                // localIdentName: "[path][name]-[local]-[hash:5]", // 类名转换格式
+                localIdentName: "[name]-[local]", // 类名转换格式
+              }
+            },
+          },
+          {
+            loader: require.resolve('less-loader'), // compiles Less to LESS
+            options: {
+              // javascriptEnabled: true,
+              importLoaders: 2,
+              modules: true,
+            },
+          },
+        ],
       },
+      // {
+      //   test: /\.(less|css)$/,
+      //   use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader','less-loader'],
+      //   sideEffects: true,
+      // },
     ]
   },
   // 插件

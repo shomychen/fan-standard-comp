@@ -122,9 +122,10 @@ class AutoSuggest extends Component {
         const inputRef = this.props.inputRef || null;
 
         return (
-            <div className="auto-suggest">
+            <div className={style.autoSuggest}>
                 <form onSubmit={this.handleSubmit}>
                     <input
+                      className="myInput"
                         value={value}
                         placeholder={placeholder}
                         onChange={this.handleChange}
@@ -136,7 +137,7 @@ class AutoSuggest extends Component {
                 </form>
 
                 {this.state.isCollapsed  ? null : (
-                    <div className="suggestions">
+                    <div className={style.suggestions}>
                         {suggestions.map((option, index) => {
                             return (
                                 <div
