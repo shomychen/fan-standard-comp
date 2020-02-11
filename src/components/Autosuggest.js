@@ -122,7 +122,7 @@ class AutoSuggest extends Component {
         const inputRef = this.props.inputRef || null;
 
         return (
-            <div className="autoSuggest">
+            <div className="auto-suggest">
                 <form onSubmit={this.handleSubmit}>
                     <input
                         value={value}
@@ -141,7 +141,7 @@ class AutoSuggest extends Component {
                             return (
                                 <div
                                     key={option}
-                                    className={style.option}
+                                    className="option"
                                     onClick={() => {
                                         this.handleClick(option);
                                     }}
