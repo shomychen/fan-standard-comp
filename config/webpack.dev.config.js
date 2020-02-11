@@ -55,11 +55,6 @@ module.exports = {
           },
         ],
       },
-      // {
-      //   test: /\.(less|css)$/,
-      //   use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader','less-loader'],
-      //   sideEffects: true,
-      // },
     ]
   },
   // 插件
