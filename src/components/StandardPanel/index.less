@@ -1,0 +1,180 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../theme/spec-variable.less';
+
+:global {
+  .spec-panel {
+    margin-bottom: @padding-md;
+    background: @layout-body-background;
+    border-radius: 4px;
+    box-shadow: @spec-box-shadow;
+    &.spec-panel-border {
+      box-shadow: none;
+      .spec-panel-header {
+        height: 32px;
+        padding:0;
+        line-height: 32px;
+        .spec-panel-title {
+          width: 100%;
+          padding: 0;
+        }
+      }
+      .spec-panel-body {
+        padding: @padding-md;
+      }
+    }
+    &.spec-panel-reverse {
+      .spec-panel-header {
+        height: 32px;
+        padding:0 @padding-md;
+        line-height: 32px;
+        background: @table-header-bg;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+      .spec-panel-body {
+        padding: @padding-md;
+      }
+
+    }
+    .sub-header-base{
+      color: #000;
+    }
+    .spec-panel-header {
+      display: flex;
+      padding: 12px @padding-md;
+      line-height: 32px;
+      .spec-panel-title {
+        padding-right: @padding-md
+      }
+      .spec-panel-inner {
+        flex: 1;
+      }
+      .badges {
+        display: inline-block;
+        height: 20px;
+        margin-top: 6px;
+        padding-left: 80px;
+        line-height: 20px;
+        vertical-align: middle;
+        .badges-item {
+          position: relative;
+          margin-right: @padding-md;
+          padding-left: 20px;
+          color: @text-color-secondary;
+          i {
+            position: absolute;
+            top: 50%;
+            left:0;
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            transform: translate(0, -50%);
+          }
+        }
+      }
+      .spec-panel-cate {
+        .ant-radio-button-wrapper{
+          min-width: 68px;
+          margin-left: @padding-sm;
+          text-align: center;
+          border: 0;
+          border-bottom: 2px solid transparent;
+          border-radius: 0;
+          &::before {
+            display: none;
+          }
+          &:active,
+          &:visited,
+          &:focus {
+            box-shadow: none;
+          }
+          &:focus-within {
+            outline: none;
+          }
+        }
+        .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+          color:@primary-color;
+          background: none;
+          border-color:  @primary-color;
+          box-shadow: none;
+        }
+
+         + .spec-panel-buttons {
+          margin-left: 80px;
+        }
+      }
+      .spec-panel-buttons {
+        .ant-radio-button-wrapper{
+          min-width: 68px;
+          margin-left: @padding-sm;
+          text-align: center;
+          border-left: 1px solid @border-color-base;
+          border-radius: 4px;
+          &::before {
+            display: none;
+          }
+        }
+        .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+          border-color:  @primary-color;
+          box-shadow: none;
+        }
+      }
+      .spec-panel-extra{
+        margin-left: @padding-sm;
+        .anticon, .specfont, .specicon {
+          margin-left: @padding-xs;
+        }
+      }
+    }
+    .spec-panel-body {
+      padding: 0 @padding-md  @padding-md;
+    }
+    &.bg-dot {
+      //background: url("../../../assets/sync_logo.png") no-repeat;
+    }
+
+    &.bg-shape-1,
+    &.bg-shape-2 {
+      position: relative;
+      &::after {
+        position: absolute;
+        top:0;
+        right: 0;
+        z-index: -1;
+        display: inline-block;
+        width: 100%;
+        height:100%;
+        content: '';
+      }
+    }
+    //&.bg-shape-1 {
+    //  background: url("../../assets/light/panel-shape1.png") right top no-repeat;
+    //  background-color: @layout-body-background ;
+    //
+    //}
+    //&.bg-shape-2 {
+    //  background: url("../../assets/light/panel-shape2.png") center top no-repeat;
+    //  background-color: @layout-body-background ;
+    //}
+  }
+
+  .themeTech {
+    .spec-panel{
+      &.bg-shape-1,
+      &.bg-shape-2 {
+        background: @layout-body-background;
+      }
+      .sub-header-base {
+        color: @text-color;
+      }
+      .spec-panel-header .spec-panel-buttons .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
+        color: @text-color;
+        border-color: transparent;
+      }
+      .spec-panel-header .spec-panel-buttons .ant-radio-button-wrapper{
+        border-color: #34CB89;
+      }
+    }
+  }
+}

@@ -21,8 +21,19 @@ module.exports = {
     rules: [
       {
         test: /\.js|jsx$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react'],
+            // presets: ["env", "react"], // 需要安装 babel-preset-env 与 babel-preset-react
+            plugins: [
+              '@babel/plugin-proposal-class-properties',
+              [require.resolve('babel-plugin-import'), { libraryName: 'antd',  "libraryDirectory": "es", style: 'css' }] // antd按需加载(需要安装包'babel-plugin-import')
+            ],
+            compact: true,
+          }
+        },
+        exclude: /node_modules/,
       },
       {
         test: /\.(css|less)$/,
@@ -53,6 +64,25 @@ module.exports = {
           },
         ],
       },
+      //antd样式处理
+      {
+        test:/\.css$/,
+        exclude:/src/,
+        use:[
+          {
+            loader: "style-loader"},
+          {
+            loader: "css-loader",
+            options:{
+              importLoaders:1
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(png|jpg)$/,
+        use: { loader: 'url-loader', options: { limit: 1000  } },
+      }
     ]
   },
   // 插件

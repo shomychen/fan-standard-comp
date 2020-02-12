@@ -16,9 +16,20 @@ module.exports = {
     rules: [
       {
         test: /\.js|jsx$/,
-        use: 'babel-loader',
+        // use: 'babel-loader',
         exclude: /node_modules/,
+        use: [
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              plugins: ['@babel/plugin-proposal-class-properties'],
+            },
+          }
+        ]
         // 按需引入antd
+        // use: [
+        //   '@babel/plugin-proposal-class-properties'
+        // ]
         // options: {
         //   plugins: [
         //     ['import', { libraryName: 'antd', style: 'css' }],
@@ -59,6 +70,10 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(png|jpg)$/,
+        use: { loader: 'url-loader', options: { limit: 1000  } },
+      }
     ]
   },
 
