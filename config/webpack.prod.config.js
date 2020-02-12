@@ -1,5 +1,8 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals'); // 使得打包的组件中不包括任何 node_modules 里面的第三方组件，起到减小体积的作用
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -14,7 +17,14 @@ module.exports = {
       {
         test: /\.js|jsx$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        // 按需引入antd
+        // options: {
+        //   plugins: [
+        //     ['import', { libraryName: 'antd', style: 'css' }],
+        //   ],
+        //   compact: true,
+        // },
       },
       {
         test: /\.(css|less)$/,
@@ -38,14 +48,33 @@ module.exports = {
           {
             loader: require.resolve('less-loader'), // compiles Less to LESS
             options: {
-              javascriptEnabled: true,
+              javascriptEnabled: true, // 样式打包到less中
               importLoaders: 2,
-              modules: true,
+              // modules: true,
+              modules: {
+                // localIdentName: "[path][name]-[local]-[hash:5]", // 类名转换格式
+                localIdentName: "[name]-[local]", // 类名转换格式
+              }
             },
           },
         ],
       },
     ]
+  },
+
+  // 插件
+  plugins: [
+    // new CleanWebpackPlugin(), //  在打包的时候会删除之前的打包目录
+    // css/less 转换成.css文件引入
+    // new MiniCssExtractPlugin({
+    //   filename: '[name]-[contenthash].css',
+    //   chunkFilename: '[name]-[contenthash].css',
+    // }),
+  ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, '../src'),
+    },
   },
   externals: [nodeExternals()]
 };

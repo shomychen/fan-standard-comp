@@ -2,8 +2,6 @@ const path = require('path');
 const uglify = require('uglifyjs-webpack-plugin');
 const htmlPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 
 module.exports = {
   mode: 'development',
@@ -48,7 +46,7 @@ module.exports = {
           {
             loader: require.resolve('less-loader'), // compiles Less to LESS
             options: {
-              // javascriptEnabled: true,
+              javascriptEnabled: true,
               importLoaders: 2,
               modules: true,
             },
@@ -79,5 +77,10 @@ module.exports = {
     compress: true,
     // 配置端口
     port: 8801,
-  }
+  },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
 }

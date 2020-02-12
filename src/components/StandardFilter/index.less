@@ -1,0 +1,64 @@
+@import '~antd/lib/style/themes/default.less';
+
+.filterGrid {
+  display: flex;
+  .filterForm {
+    flex: 1;
+    font-size: 0;
+    :global {
+      .ant-form-item {
+        margin-right: @padding-md; // 16px
+        margin-bottom: @padding-md;
+      }
+      .ant-form-item-control{
+        //width: 140px;
+      }
+      .ant-form-item-control,
+      .ant-form-item-label {
+        line-height: 32px;
+      }
+    }
+  }
+  .filterBtns {
+    //max-width: 340px;
+    padding-left: 80px;
+    text-align: right;
+    :global {
+      .ant-btn {
+        margin-bottom: @padding-md;
+        margin-left: @padding-sm;
+      }
+    }
+  }
+}
+
+.toolbarBtn {
+  min-height: @btn-height-base;
+  margin-bottom: @padding-md;
+  :global {
+    .ant-btn {
+      margin-right: @padding-md;
+    }
+  }
+}
+.toolbar {
+  margin-bottom: @padding-md;
+  .toolbarForm {
+    //min-height: @btn-height-base;
+    //display: flex;
+    //justify-content: flex-end;
+    //align-items: center;
+  }
+}
+.searchForm{
+  margin-bottom: @padding-md;
+}
+:global {
+  .themeTech {
+    .antd-pro-components-standard-comp-standard-filter-index-filterForm{
+      .ant-btn.ant-btn-primary.ant-btn-background-ghost {
+        border-color: transparent !important;
+      }
+    }
+  }
+}
