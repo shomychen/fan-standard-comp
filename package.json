@@ -9,14 +9,25 @@
   "scripts": {
     "build": "webpack --config=config/webpack.prod.config.js",
     "start": "webpack-dev-server --config=config/webpack.dev.config.js",
-    "webpack-build": "webpack --config webpack.dev.config.js",
-    "webpack-server": "webpack-dev-server --config webpack.dev.config.js",
+    "build:publish": "npm run build && npm version patch && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "shomychen",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.0.1",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-replace": "^2.3.1",
+    "@rollup/plugin-url": "^4.0.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-ignore": "^1.0.5",
+    "rollup-plugin-less": "^1.1.2",
+    "rollup-plugin-postcss": "^2.0.6",
+    "rollup-plugin-postcss-umi": "^2.0.3",
+    "rollup-plugin-terser": "^5.2.0",
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-transform-arrow-functions": "^7.8.3",
@@ -47,8 +58,8 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@alex_xu/xui": "0.1.0-snapshot.15",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "react-tabs": "^3.1.0"
   }
 }
