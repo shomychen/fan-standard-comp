@@ -1,6 +1,6 @@
 {
   "name": "fan-standard-comp",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "fanzhuo  react standard-comp",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -11,10 +11,9 @@
   ],
   "scripts": {
     "build": "npx father build && webpack",
-    "build:publish": "npm version patch && npm publish",
+    "build:publish": "npm run build && npm version patch && npm publish",
     "webpack-build": "webpack --config=config/webpack.prod.config.js",
     "server": "webpack-dev-server --config=config/webpack.dev.config.js",
-    "build:publish": "npm run build && npm version patch && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
