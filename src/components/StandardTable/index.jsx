@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Table, Card, Menu, Divider, Popconfirm, Icon, Dropdown } from 'antd';
 import _ from 'lodash';
-import { funcCode, general } from '../../data/index';
-import styles from './index.less';
 import classNames from 'classnames';
+import { Table, Card, Menu, Divider, Popconfirm, Icon, Dropdown } from 'antd';
+import { funcCode } from '../../data';
+import './index.less';
 
 const StandardTable = React.forwardRef((props, ref) => {
 

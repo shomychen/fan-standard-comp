@@ -1,3 +1,6 @@
+---
+name: StandardFilter
+---
 # 筛选工具栏
 
 用在表格上方的筛选工具栏

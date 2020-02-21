@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
-
+import React, { useEffect } from "react";
 import { Col, Tooltip, Icon, Form } from "antd";
 // import styles from "../../StandardComp/StandardModal/index.less";
-import { general } from '@/data';
-import { FieldComponent, filedsValueFormat } from '@/components/FormComp';
+import { general } from '../../../data';
+import FieldComponent from '../FieldComponent';
 
 const FormItem = Form.Item
 

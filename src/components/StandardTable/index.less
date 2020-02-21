@@ -1,54 +1,8 @@
-@import '../../../node_modules/antd/lib/style/themes/default.less';
-//@import '../../../theme/spec-variable.less';
+@import '~antd/lib/style/themes/default.less';
+@import '../../theme/spec-variable.less';
 
 @spec-card-padding: @padding-xs;
 @spec-card-background: @background-color-base;
-
-.spec-scrollbar-base(){
-  &::-webkit-scrollbar-track-piece {
-    background: fade(#c1c1c1, 10%);
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: fade(#c1c1c1, 50%);
-    border-radius: 20px;
-  }
-}
-.spec-scrollbar(){
-  &::-webkit-scrollbar-track-piece {
-    background: fade(@primary-color, 10%);
-  }
-  &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: fade(@primary-color, 50%);
-    border-radius: 20px;
-  }
-}
-.spec-scrollbar-light() {
-  &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.2);
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-  }
-  &::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.1);
-    border-radius: 0;
-    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-  }
-}
-
-@spec-box-shadow:  0 0 12px fade(@primary-color, 10%); // 蓝色阴影
-@spec-box-shadow-dark:  0 0 10px fade(#1E1E1E, 10%); // 灰色阴影
 :global {
   .standard-table {
     .ant-table-middle ~ .ant-table-pagination {

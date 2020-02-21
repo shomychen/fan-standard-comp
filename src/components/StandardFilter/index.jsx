@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { FieldComponent, filedsValueFormat } from '@/components/FormComp';
-import { funcCode, general } from '@/data';
+import { FieldComponent, filedsValueFormat } from '../FormComp';
+import { funcCode, general } from '../../data';
 import { Form, Button, Icon, Menu, Dropdown, Select, Checkbox } from 'antd';
 import styles from './index.less';
 

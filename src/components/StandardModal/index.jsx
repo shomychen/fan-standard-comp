@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Modal, Button, Row } from 'antd';
 import styles from './index.less';
-import { general } from '@/data';
-import { filedsValueFormat, RenderItemGroup } from '@/components/FormComp';
+import { general } from '../../data';
+import { filedsValueFormat, RenderItemGroup } from '../FormComp';
 
 class StandardModal extends React.Component {
   handleSubmit = (e) => {

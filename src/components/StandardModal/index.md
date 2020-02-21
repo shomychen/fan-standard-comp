@@ -1,8 +1,7 @@
 ---
-title: 
-  zh-CN: StandardModal
-  subtitle: 弹窗
+name: StandardModal
 ---
+
 
 页面上使用的新增/编辑弹窗
 
