@@ -1,9 +1,10 @@
 ---
+menu: 通用组件
 name: StandardFilter
 ---
 # 筛选工具栏
 
-用在表格上方的筛选工具栏
+> 用在表格上方的筛选工具栏
 
 ## 基础用法
 
@@ -143,7 +144,7 @@ const controlFilters = [
 export default StandardFilterDemo;
 ```
 
-### StandardFilter
+## API
 | 参数字段      | 说明  |   类型   |必选项| 默认值/参考值|
 |----------|------|-------------|------|------|
 | formItemGroup | 表单组 | Array or ReactNode | 是 | Array值查看 formItemGroup API |
@@ -152,7 +153,7 @@ export default StandardFilterDemo;
 | onFilterReset | 点击重置搜索条件 | Function(fields) | 是 | -|
 
 
-### formItemGroup Array
+### formItemGroup API
 | 参数字段      | 说明  |   类型   |必选项| 参考值|
 |----------|------|-------------|------|------|
 | label | 标签名称/条件名称 | String | 是 |- |
@@ -161,7 +162,7 @@ export default StandardFilterDemo;
 | filedOptions | 控件配置项 | String | 否 |参考  [getFieldDecorator(id, options) 参数](https://ant.design/components/form-cn/#getFieldDecorator(id,-options)-参数) |
 | selectOptions | 选项列表 | Array | 否 | select/radio/checkbox等使用 ,选项值：{'label': 'xxx', value: 'xxx'}|
 
-### buttonGroup Array
+### buttonGroup API
 | 参数字段      | 说明  |   类型   |必选项|
 |----------|------|-------------|------|
 | name | 按钮文本 | String | 是 |

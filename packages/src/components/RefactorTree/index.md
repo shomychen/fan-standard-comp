@@ -1,5 +1,6 @@
 ---
-name: RefactorTree
+name: tree 树
+menu: 数据展示
 ---
 
 
@@ -7,10 +8,9 @@ name: RefactorTree
 
 常用于页面栅格结构的左侧树
 
-## API
+## 基本用法
 
 ```
-
 import { RefactorTree } from 'fan-standard-comp';
 const handleTreeSelect = (key) => {
     message.info('选择树节点ID：' + key.join(','))
@@ -57,14 +57,12 @@ const setTreeData =  [
           optionName={setTreeOptionName}
           treeData={setTreeData}/>
 ```
-### API
-| 参数      | 说明                                      | 类型         | 默认值 | 参考值 |
-|----------|------------------------------------------|-------------|-------|-------|
+## API
+| 参数      | 说明                                      | 类型         | 默认值 |
+|----------|------------------------------------------|-------------|-------|
 | treeData | 树数组 | Array | - |- |
-| emptyDescription | 数据为空时显示的提示语 | String | '暂无数据' |- |
-| rootName | 是否指定显示根节点名称 | String | - |- |
-| rootKey | 指定根节点的key值 | String | - |- |
-| optionName | 指定用于显示节点的字段名称 | Object | { key: 'key', title: 'title', children: 'children' } |- |
-| 其他配置 | 参考  [Tree props](https://ant.design/components/tree-cn/)  | - |-|- |
-
-
+| emptyDescription | 数据为空时显示的提示语 | String | '暂无数据' |
+| rootName | 是否指定显示根节点名称 | String | - |
+| rootKey | 指定根节点的key值 | String | - |
+| optionName | 指定用于显示节点的字段名称 | Object | { key: 'key', title: 'title', children: 'children' } |
+| 其他配置 | 参考  [Tree props](https://ant.design/components/tree-cn/)  | - |-|

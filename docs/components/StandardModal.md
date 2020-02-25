@@ -1,25 +1,27 @@
 ---
+menu: 通用组件
 name: StandardModal
 ---
 
+# 通用弹窗
+> 页面上使用的操作类弹窗
 
-页面上使用的新增/编辑弹窗
-
-## API
+## 基础用法
 
 ```html
 <StandardModal 
 title="新增设备管理"
 type="form"
 size="md"
-
 ></StandardFilter>
 ```
-### StandardModal props
+## 配置化表单用法
+
+## API
 | 参数      | 说明                                      | 类型         | 默认值 | 参考值 |
 |----------|------------------------------------------|-------------|-------|-------|
 | title | 弹窗标题 | String | - |- |
-| size | 弹窗大小 | String | sm |可选:sm,md,lg |
+| size | 弹窗大小 | String | sm |可选:xs,sm,md,lg,lg |
 | type | 弹窗类型 | String |normal |可选normal：普通弹窗, form: 配置表单弹窗 |
 | onSubmit | 点击保存（确认）,type为form时，参数中才有fields |  Function([fields]) | - |- |
 | onCancel | 取消 |  Function()| - |- |
@@ -35,7 +37,7 @@ size="md"
 
 
 
-### formItemGroup Array
+## formItemGroup API
 | 参数字段      | 说明  |   类型   |必选项| 参考值|
 |----------|------|-------------|------|------|
 | label | 标签名称/条件名称 | String 或 ReactNode | 是 |- |
@@ -50,7 +52,7 @@ size="md"
 | isHide | 是否隐藏当前配置的组件 | Boolean| 否 | - |
 | protoConfig | 原生的表单控件配置或者antd对应的配置参数,例如配置 protoConfig: { disabled: true }| Object| 否 | - |
 
-### footerBtnGroup Array
+## footerBtnGroup API
 
 | 参数字段      | 说明  |   类型   |必选项|
 |----------|------|-------------|------|

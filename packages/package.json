@@ -1,6 +1,6 @@
 {
   "name": "fan-standard-comp",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "FZ standard-comp,basic of antd or other comp",
   "main": "lib/index.js",
   "module": "es/index.js",
