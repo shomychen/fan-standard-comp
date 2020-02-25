@@ -1,3 +1,8 @@
+/*
+* 工具类： 表单组控件值格式转换工具
+* @params {Object} fieldsValue: 表单组内的控件值
+* @params {Array} formItemGroup: 表单组
+* */
 const filedsValueFormat = (fieldsValue, formItemGroup)=> {
   formItemGroup && formItemGroup.forEach((item) => {
     if (!fieldsValue[item.filedName]) return

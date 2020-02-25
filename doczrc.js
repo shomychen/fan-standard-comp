@@ -13,7 +13,7 @@ export default {
   ignore: ['Readme.md'],
   // 菜单配置
   menu: [
-    "首页",
+    "使用说明",
     {
       name:"通用组件",
       menu: [

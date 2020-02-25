@@ -3,7 +3,7 @@ name: 基础控件
 menu: 配置化表单
 ---
 
-# 配置化表单基础控件
+# 基础控件
 
 > 常用于通用筛选表单及通用弹窗内，可指定类型后直接展示antd的基本控件
 
@@ -11,6 +11,8 @@ menu: 配置化表单
 
 ```
 import {FieldComponent} from 'fan-standard-comp';
+
+<FieldComponent type="input"/>
 ```
 ### API
 | 参数      | 说明                                      | 类型         | 默认值 | 参考值 |

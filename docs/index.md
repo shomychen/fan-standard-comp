@@ -1,3 +1,8 @@
+---
+name: 使用说明
+route: /
+---
+
 > 项目中使用的通用组件
 基于 antd ，进行再次封装的数据绑定通用组件
 
@@ -15,5 +20,4 @@ $ yarn add fan-standard-comp
 ```
 import { StandardPanel } from 'fan-standard-comp';
 ReactDOM.render(<StandardPanel />, mountNode);
-
 ```
