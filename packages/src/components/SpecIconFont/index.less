@@ -1,0 +1,123 @@
+@import 'iconfont.less';
+@import 'iconfontSub.less';
+@import '~antd/lib/style/themes/default.less';
+
+:global {
+  .spec-icon {
+    color: @text-color;
+  }
+  .specicon {
+    color: @text-color;
+    display: inline-block;
+    color: inherit;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 0;
+    text-align: center;
+    text-transform: none;
+    vertical-align: -0.125em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .specicon > svg {
+    display: inline-block;
+    vertical-align: inherit;
+    ///* 通过设置 font-size 来改变图标大小 */
+    width: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+  }
+  .specicon-round {
+    display: inline-block;
+    padding: 2px;
+    vertical-align: middle;
+    border:1px solid transparent;
+    border-radius: 50%;
+    .specicon {
+      border-radius: 50%;
+      box-shadow:0px 0px 3px 1px rgba(6,36,95,0.46);
+      svg {
+        padding: .2em;
+        fill: #fff;
+      }
+    }
+
+    &.is-normal {
+      border-color: @info-color;
+      i {
+        background: @info-color;
+      }
+    }
+    &.is-success {
+      border-color: @success-color;
+      i {
+        background: @success-color;
+      }
+    }
+    &.is-error {
+      border-color: @error-color;
+      i {
+        background: @error-color;
+      }
+    }
+    &.is-warning {
+      border-color: @warning-color;
+      i {
+        background: @warning-color;
+      }
+    }
+    &.is-offline {
+      border-color: #6F8FC2;
+      i {
+        background: #6F8FC2;
+      }
+    }
+    &.is-disabled {
+      border-color: @disabled-color;
+      i {
+        background: @disabled-color;
+      }
+    }
+  }
+  .spec-icon,
+  .specicon {
+    &.is-normal {
+      color: @info-color;
+      svg {
+        fill: @info-color;
+      }
+    }
+    &.is-success {
+      color: @success-color;
+      svg {
+        fill: @success-color;
+      }
+    }
+    &.is-error {
+      color: @error-color;
+      svg {
+        fill: @error-color;
+      }
+    }
+    &.is-warning {
+      color: @warning-color;
+      svg {
+        fill: @warning-color;
+      }
+    }
+    &.is-offline {
+      color: #6F8FC2;
+      svg {
+        fill: #6F8FC2;
+      }
+    }
+    &.is-disabled {
+      color: @disabled-color;
+      svg {
+        fill: @disabled-color;
+      }
+    }
+  }
+}

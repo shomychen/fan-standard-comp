@@ -29,7 +29,7 @@
   "dependencies": {
     "docz-plugin-umi-css": "^0.14.1",
     "docz-theme-default": "^1.2.0",
-    "fan-standard-comp": "^1.0.18",
+    "fan-standard-comp": "^1.0.21",
     "gatsby-plugin-less": "^3.0.19",
     "webpack-cli": "^3.3.11"
   }

@@ -1,0 +1,122 @@
+@import '~antd/lib/style/themes/default.less';
+@import '../../theme/spec-variable.less';
+
+:global {
+  .spec-map-planar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .ant-empty {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .spec-map-planar-toolbar {
+      position: absolute;
+      bottom: @padding-md;
+      left: @padding-md;
+      z-index: 3;
+      width: auto;
+      padding: 0 @padding-xs;
+      background: fade(@primary-color, 20%);
+      border-radius: 16px;
+      box-shadow: @spec-box-shadow-dark;
+      a {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        vertical-align: middle;
+        &:not(:last-child) {
+          border-right: 1px solid fade(@primary-color, 20%);
+        }
+        &:hover i {
+          color: @link-color;
+        }
+        i {
+          color: @text-color-secondary;
+          font-size: 20px;
+        }
+      }
+    }
+    .spec-map-planar-loading {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: fade(@primary-color, 8%);
+      .ant-spin {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+  .spec-map-planar-tip {
+    position: fixed;
+    display: none;
+    max-width: 120px;
+    padding: 2px 4px;
+    color: #fff;
+    font-size: 12px;
+    line-height: 16px;
+    background: fade(#263548, 80%);
+    border-radius: 2px;
+  }
+  .spec-map-device-info {
+    position: absolute;
+    top: 140px;
+    left: 130px;
+    max-width: 200px;
+    padding: @padding-xs;
+    font-size: 12px;
+    background: fade(@primary-color, 20%);
+    transform: translate(-50%, 0);
+    &.fixed {
+      position: fixed;
+    }
+    .device-name {
+      font-weight: bold;
+    }
+    &::after {
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      margin-left: -3px;
+      border-top: 4px solid fade(@primary-color, 20%);
+      border-right: 4px solid transparent;
+      //border-bottom: 6px solid transparent;
+      border-left: 4px solid transparent; // fade(@primary-color, 10%);
+      content: '';
+    }
+  }
+  .themeTech {
+    .spec-map::before {
+      opacity: 0;
+    }
+    .spec-map-popover .ant-popover-inner {
+      background: fade(@layout-body-background, 15%);
+      .notice-item {
+        background: fade(@layout-body-background, 25%);
+      }
+    }
+
+    // 更改二维地图"图纸"线条颜色及填充色
+    .main-planar-svg  {
+      g[stroke] {
+        stroke: #20d0d1 !important;
+      }
+      g:not([style*="stroke:none"]) {
+        fill: #20d0d1 !important;
+      }
+      path:not([stroke="none"]) {
+        stroke: #20d0d1 !important;
+      }
+      path:not([fill="none"]) {
+        fill: #20d0d1 !important;
+      }
+    }
+  }
+}
