@@ -1,3 +1,4 @@
+// TODO 引入带colorPalette变量会报错
 /*
 * 用于编译的变量文件(主要涉及一些颜色值的替换，基础高度padding等，需要另外的config.js的theme引入 varBuildBase的变量)
 * 科技色变量：如techBlue,techGreen，
@@ -72,11 +73,11 @@ module.exports = {
   '@menu-item-active-border-width': '4px',
   // '@menu-item-active-bg': '#1A2634',
   // '@menu-highlight-color': '#fff',
-  '@menu-dark-color': 'color(~`colorPalette("@{primary-color}", 4)`)',
+  // '@menu-dark-color': 'color(~`colorPalette("@{primary-color}", 4)`)',
   // '@menu-dark-bg': 'url(\'/images/sideer-bg.png\') #143179 left bottom no-repeat',
   // dark theme Menu
   '@menu-dark-bg': '#263548',
-  '@menu-dark-arrow-color': 'color(~`colorPalette("@{primary-color}", 4)`)',
+  // '@menu-dark-arrow-color': 'color(~`colorPalette("@{primary-color}", 4)`)',
   '@menu-dark-submenu-bg': 'transparent',
   '@menu-dark-highlight-color': '@primary-color',
   '@menu-dark-item-active-bg': '#1A2634',
@@ -109,7 +110,7 @@ module.exports = {
   // '@tabs-card-gutter': '-1px',
   '@component-background': '#fff',
 
-  '@tree-node-selected-bg': 'color(~`colorPalette("@{primary-color}", 4)`)',
+  // '@tree-node-selected-bg': 'color(~`colorPalette("@{primary-color}", 4)`)',
 
   '@zindex-message': 2010,
   // '@grid-columns': '24',

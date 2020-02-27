@@ -1,6 +1,22 @@
 @import '~antd/lib/style/themes/default.less';
 
 .standardModal {
+  :global {
+
+    .ant-modal-body {
+      &::-webkit-scrollbar-track-piece {
+        background: fade(#c1c1c1, 10%);
+      }
+      &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: fade(#c1c1c1, 50%);
+        border-radius: 20px;
+      }
+    }
+  }
   .modalForm{
     :global {
      .ant-form {

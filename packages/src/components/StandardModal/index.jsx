@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Form, Modal, Button, Row } from 'antd';
 import styles from './index.less';
 import { general } from '../../data';
@@ -6,6 +7,30 @@ import RenderItemGroup from '../FormComp/RenderItemGroup';
 import filedsValueFormat from '../FormComp/filedsValueFormat.js';
 
 class StandardModal extends React.Component {
+
+  constructor(props) {
+    super(props);
+    const { title, footer, footerRender, footerButtonGroup } = props
+    this.state = {
+      // 160px代表上下空白间距， 32px为内容区内部的上下padding值
+      bodyMaxHeight: `calc(${document.body.offsetHeight}px - ${title ? 55 : 0}px - ${(footer || footerRender || footerButtonGroup) ? 55 : 0}px - 160px - 32px)`
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.initBodyMaxHeight);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.initBodyMaxHeight);
+  }
+
+  initBodyMaxHeight = () => {
+    const { title, footer, footerRender, footerButtonGroup } = this.props
+    this.setState({
+      bodyMaxHeight: `calc(${document.body.offsetHeight}px - ${title ? 55 : 0}px - ${(footer || footerRender || footerButtonGroup) ? 55 : 0}px - 160px - 32px)`
+    })
+  }
   handleSubmit = (e) => {
     const { type, form, onSubmit, formItemGroup } = this.props;
     if (type === 'form') {
@@ -83,6 +108,7 @@ class StandardModal extends React.Component {
       disabledAll = false,
       getFormFields,
     } = this.props;
+    const { bodyMaxHeight } = this.state;
     return <Modal
       className={styles.standardModal}
       width={general.modalSize[size].width || general.modalSize.sm.width}
@@ -90,6 +116,8 @@ class StandardModal extends React.Component {
       afterClose={this.onAfterClose}
       footer={this.renderButtonGroup()}
       destroyOnClose
+      style={{ top: '80px' }}
+      bodyStyle={{ maxHeight: bodyMaxHeight, overflowY: 'scroll' }}
       {...this.props}
     >
       {this.props.children}
@@ -99,7 +127,7 @@ class StandardModal extends React.Component {
             {formPrefix && formPrefix(form, this.props)}
             {
               formItemGroup && Array.isArray(formItemGroup) &&
-              <RenderItemGroup getFormFields={getFormFields} size={size} {...this.props} itemGroup={formItemGroup} disabledAll={disabledAll}/>
+              <RenderItemGroup getFormFields={getFormFields} size={size} {...this.props} itemGroup={formItemGroup} disabledAll={disabledAll} />
             }
             {formPostfix && formPostfix(form, this.props)}
           </Row>

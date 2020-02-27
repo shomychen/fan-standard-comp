@@ -20,8 +20,11 @@ const config: IConfig =  {
       ]
     }
   ],
+  lessLoaderOptions: {
+    javascriptEnabled: true,
+  },
   theme: baseTheme,
-  // theme: theme,
+
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
     ['umi-plugin-react', {
