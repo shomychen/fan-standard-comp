@@ -19,8 +19,10 @@ const RefactorTree = props => {
   // 重新组合指定数据源字段
   const { title, key, children, disabled } = Object.assign({ key: 'key', title: 'title', children: 'children', disabled: 'disabled' }, optionName)
   const handleToSelectTreeNode = (key, e) => {
-    const { onSelect } = props;
-    onSelect && onSelect(key, e, e.node.props.dataRef)
+    const { onSelect} = props;
+    const multiSelectedData = [];
+    e.selectedNodes.map(item => multiSelectedData.push(item.props.dataRef)) // 多选条件下,当前选中所有节点数据
+    onSelect && onSelect(key, e, e.node.props.dataRef, multiSelectedData, multiSelectedData)
   }
   const handleNodeControl = (e, type, nodeData) => {
     e.stopPropagation()

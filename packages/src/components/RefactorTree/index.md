@@ -65,5 +65,5 @@ const setTreeData =  [
 | rootName | 是否指定显示根节点名称 | String | - |
 | rootKey | 指定根节点的key值 | String | - |
 | optionName | 指定用于显示节点的字段名称 | Object | { key: 'key', title: 'title', children: 'children' } |
-| onSelect | 点击树节点触发 | function(selectedKeys, e:{selected: bool, selectedNodes, node, event}, selectedData) |  |
+| onSelect | 点击树节点触发 | function(selectedKeys, e:{selected: bool, selectedNodes, node, event}, selectedData, selectedDatas) |  |
 | 其他配置 | 参考  [Tree props](https://ant.design/components/tree-cn/)  | - |-|

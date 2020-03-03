@@ -6,8 +6,8 @@ import {RefactorTree} from "../../../packages/src";
 class App extends React.Component {
   state = {visible: false};
   // 树的选择
-  handleTreeSelect = (key, e, data) => {
-    console.log('按钮点击', key, e, data)
+  handleTreeSelect = (key, e, data, selectedDatas) => {
+    console.log('按钮点击', key, e, data, selectedDatas)
     message.info('选择树节点ID：' + key.join(','))
   };
 
