@@ -6,7 +6,7 @@ export { default as PlanarViewer } from './components/PlanarViewer';
 // import {default as StandardMap}  from './components/StandardMap';
 
 export { default as FieldComponent } from './components/FormComp/FieldComponent';
-export { default as FormItemGroup } from './components/FormComp/RenderItemGroup';
+export { default as RenderItemGroup } from './components/FormComp/RenderItemGroup';
 export { default as SpecIcon } from './components/SpecIconFont';
 
 export { default as RefactorTree } from './components/RefactorTree';

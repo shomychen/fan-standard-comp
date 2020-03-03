@@ -44,7 +44,7 @@ const StandardFilter = React.forwardRef((props, ref) => {
           formItemGroup.map((item, index) => {
             const { componentStyle } = item
             return (
-              <FormItem key={item.label} label={item.label}>
+              <FormItem key={item.filedName} label={item.label}>
                 {getFieldDecorator(item.filedName, { ...item.filedOptions })(
                   <FieldComponent {...item}
                                   style={componentStyle || { ...general.formItemStyle.xsm }} />
@@ -126,7 +126,9 @@ const StandardFilter = React.forwardRef((props, ref) => {
             {renderFormItemGroup()}
             <FormItem>
               <Button type="primary" htmlType="submit">查询</Button>
-              <Button type="primary" style={{ marginLeft: 8 }} onClick={handleReset} ghost>重置</Button>
+              {
+                onFilterReset && <Button type="primary" style={{ marginLeft: 8 }} onClick={handleReset} ghost>重置</Button>
+              }
             </FormItem>
           </> : null}
         </div>

@@ -6,7 +6,7 @@ import FieldComponent from '../FieldComponent';
 
 const FormItem = Form.Item
 
-const FormItemGroup = (props) => {
+const RenderItemGroup = (props) => {
   const { form, itemGroup, size = 'md', disabledAll = false, getFormFields, colSpan, displayLayout } = props
   const setColSpan = (display, modalSize) => {
     if (display === 'block' || modalSize === 'xs') {
@@ -78,4 +78,4 @@ const FormItemGroup = (props) => {
   return itemGroup
   /* 如果是ReactNode则直接返回 */
 }
-export default FormItemGroup;
+export default RenderItemGroup;
