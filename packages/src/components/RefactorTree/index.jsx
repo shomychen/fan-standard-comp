@@ -18,9 +18,9 @@ const RefactorTree = props => {
   } = props;
   // 重新组合指定数据源字段
   const { title, key, children, disabled } = Object.assign({ key: 'key', title: 'title', children: 'children', disabled: 'disabled' }, optionName)
-  const handleToSelectTreeNode = (key) => {
+  const handleToSelectTreeNode = (key, e) => {
     const { onSelect } = props;
-    onSelect && onSelect(key)
+    onSelect && onSelect(key, e, e.node.props.dataRef)
   }
   const handleNodeControl = (e, type, nodeData) => {
     e.stopPropagation()
@@ -83,12 +83,12 @@ const RefactorTree = props => {
   }
   return (
     <Tree
-      onSelect={handleToSelectTreeNode}
       switcherIcon={<Icon type="down" />}
       defaultExpandedKeys={defExpand}
       defaultSelectedKeys={defaultSelectedKeys}
       selectable={selectable}
       {...otherProps}
+      onSelect={handleToSelectTreeNode}
     >
       {
         rootName ? (<TreeNode title={rootName} key={rootKey || '0'}
