@@ -3,7 +3,7 @@ import React from 'react';
 import { Icon, Tree, Empty, Popconfirm } from 'antd';
 
 const { TreeNode } = Tree;
-import styles from './index.less'
+import './index.less'
 
 const RefactorTree = props => {
   const {
@@ -62,7 +62,7 @@ const RefactorTree = props => {
     if (item[children]) {
       return (
         <TreeNode title={renderNodeTitle(item)} key={item[key]}
-                  className={selectable ? '' : styles.notPointer}
+                  className={selectable ? '' : "notPointer"}
                   disabled={(nodeItemReset && nodeItemReset(item).disabled) || item[disabled]}
                   dataRef={item}
         >
@@ -71,7 +71,7 @@ const RefactorTree = props => {
       );
     }
     return <TreeNode title={renderNodeTitle(item)} key={item[key]}
-                     className={selectable ? '' : styles.notPointer}
+                     className={selectable ? '' : "notPointer"}
                      disabled={(nodeItemReset && nodeItemReset(item).disabled) || item[disabled]}
                      dataRef={item} />;
   });
@@ -94,7 +94,7 @@ const RefactorTree = props => {
     >
       {
         rootName ? (<TreeNode title={rootName} key={rootKey || '0'}
-                              className={selectable ? '' : styles.notPointer}
+                              className={selectable ? '' : "notPointer"}
                               icon={rootIcon || null}>
             {renderTreeNodes(treeData)}
           </TreeNode>)

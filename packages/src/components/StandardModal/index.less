@@ -1,8 +1,7 @@
 @import '~antd/lib/style/themes/default.less';
 
-.standardModal {
-  :global {
-
+:global {
+  .standardModal {
     .ant-modal-body {
       &::-webkit-scrollbar-track-piece {
         background: fade(#c1c1c1, 10%);
@@ -16,41 +15,40 @@
         border-radius: 20px;
       }
     }
-  }
-  .modalForm{
-    :global {
-     .ant-form {
-       .ant-form-item-children {
-         display: flex;
-         flex-wrap: wrap;
-         align-items: center;
-       }
-       .ant-form-item-control {
-         line-height: 32px;
-       }
-     }
+    .modalForm{
+      :global {
+        .ant-form {
+          .ant-form-item-children {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+          }
+          .ant-form-item-control {
+            line-height: 32px;
+          }
+        }
+      }
     }
-  }
-  .modalPanelTitle {
-    height: 32px;
-    margin: 0 0 @padding-md 0;
-    padding-bottom: @padding-xs;
-    color: @text-color;
-    font-size: @font-size-base + 1;
-    font-weight: bold;
-    line-height: 32px;
-    border-bottom: 1px solid @border-color-base;
-  }
-}
-:global {
-  .modalPanelTitle {
-    height: 32px;
-    margin: 0 0 @padding-md 0;
-    padding-bottom: @padding-xs;
-    color: @text-color;
-    font-weight: bold;
-    font-size: @font-size-base + 1;
-    line-height: 32px;
-    border-bottom: 1px solid @border-color-base;
+    .modalPanelTitle {
+      height: 32px;
+      margin: 0 0 @padding-md 0;
+      padding-bottom: @padding-xs;
+      color: @text-color;
+      font-size: @font-size-base + 1;
+      font-weight: bold;
+      line-height: 32px;
+      border-bottom: 1px solid @border-color-base;
+    }
+
+    .modalPanelTitle {
+      height: 32px;
+      margin: 0 0 @padding-md 0;
+      padding-bottom: @padding-xs;
+      color: @text-color;
+      font-weight: bold;
+      font-size: @font-size-base + 1;
+      line-height: 32px;
+      border-bottom: 1px solid @border-color-base;
+    }
   }
 }

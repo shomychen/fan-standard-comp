@@ -130,51 +130,6 @@
     .spec-panel-body {
       padding: 0 @padding-md  @padding-md;
     }
-    &.bg-dot {
-      //background: url("../../../assets/sync_logo.png") no-repeat;
-    }
-
-    &.bg-shape-1,
-    &.bg-shape-2 {
-      position: relative;
-      &::after {
-        position: absolute;
-        top:0;
-        right: 0;
-        z-index: -1;
-        display: inline-block;
-        width: 100%;
-        height:100%;
-        content: '';
-      }
-    }
-    &.bg-shape-1 {
-      background: url("../../assets/light/panel-shape1.png") right top no-repeat;
-      background-color: @layout-body-background ;
-
-    }
-    &.bg-shape-2 {
-      background: url("../../assets/light/panel-shape2.png") center top no-repeat;
-      background-color: @layout-body-background ;
-    }
   }
 
-  .themeTech {
-    .spec-panel{
-      &.bg-shape-1,
-      &.bg-shape-2 {
-        background: @layout-body-background;
-      }
-      .sub-header-base {
-        color: @text-color;
-      }
-      .spec-panel-header .spec-panel-buttons .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled){
-        color: @text-color;
-        border-color: transparent;
-      }
-      .spec-panel-header .spec-panel-buttons .ant-radio-button-wrapper{
-        border-color: #34CB89;
-      }
-    }
-  }
 }

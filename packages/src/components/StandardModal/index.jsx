@@ -1,7 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Form, Modal, Button, Row } from 'antd';
-import styles from './index.less';
+import './index.less';
 import { general } from '../../data';
 import RenderItemGroup from '../FormComp/RenderItemGroup';
 import filedsValueFormat from '../FormComp/filedsValueFormat.js';
@@ -110,7 +109,7 @@ class StandardModal extends React.Component {
     } = this.props;
     const { bodyMaxHeight } = this.state;
     return <Modal
-      className={styles.standardModal}
+      className="standardModal"
       width={general.modalSize[size].width || general.modalSize.sm.width}
       maskClosable={false}
       afterClose={this.onAfterClose}
@@ -122,7 +121,7 @@ class StandardModal extends React.Component {
     >
       {this.props.children}
       {type === 'form' && (
-        <Form onSubmit={onSubmit} className={styles.modalForm}>
+        <Form onSubmit={onSubmit} className="modalForm">
           <Row type="flex">
             {formPrefix && formPrefix(form, this.props)}
             {

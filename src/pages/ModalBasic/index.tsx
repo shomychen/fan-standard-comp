@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./index.less";
-import {  Modal, Button,Tooltip, Icon } from "antd";
-import { StandardModal, StandardFilter } from "../../../packages/src";
+import {Modal, Button, Tooltip, Icon} from "antd";
+import {StandardModal,} from "../../../packages/src";
+import {StandardFilter} from 'fan-standard-comp';
 
 class App extends React.Component {
-  state = { visible: false };
+  state = {visible: false};
 
   showModal = () => {
     this.setState({
@@ -27,13 +28,14 @@ class App extends React.Component {
   };
 
   // 条件搜索
- handleFilterSearch = (fileds) => {
+  handleFilterSearch = (fileds) => {
     console.log('搜索', fileds)
   };
   // 按钮
   handleControlType = (type) => {
     console.log('按钮点击', type)
   };
+
   render() {
 
     const controlBtn = [
@@ -67,7 +69,7 @@ class App extends React.Component {
         protoConfig: {
           maxLength: 2,
           type: 'password',
-          prefix: <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />
+          prefix: <Icon type="user" style={{color: 'rgba(0,0,0,.25)'}} />
         },
         filedOptions: {
           rules: []

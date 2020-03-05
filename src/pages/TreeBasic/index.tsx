@@ -1,7 +1,7 @@
 import React from "react";
 import {message} from "antd";
 import styles from "./index.less";
-import {RefactorTree} from "../../../packages/src";
+import {RefactorTree} from 'fan-standard-comp';
 
 class App extends React.Component {
   state = {visible: false};

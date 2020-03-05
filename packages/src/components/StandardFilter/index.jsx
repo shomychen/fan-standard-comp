@@ -4,7 +4,7 @@ import FieldComponent from '../FormComp/FieldComponent';
 import filedsValueFormat from '../FormComp/filedsValueFormat.js';
 import { funcCode, general } from '../../data';
 import { Form, Button, Icon, Menu, Dropdown, Select, Checkbox } from 'antd';
-import styles from './index.less';
+import  './index.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -120,8 +120,8 @@ const StandardFilter = React.forwardRef((props, ref) => {
   }
   return (
     <Form layout="inline" onSubmit={(e) => handleSearch(e)} ref={ref}>
-      <div className={styles.filterGrid}>
-        <div className={styles.filterForm}>
+      <div className="filter-grid">
+        <div className="filter-form">
           {formItemGroup ? <>
             {renderFormItemGroup()}
             <FormItem>
@@ -132,7 +132,7 @@ const StandardFilter = React.forwardRef((props, ref) => {
             </FormItem>
           </> : null}
         </div>
-        <div className={styles.filterBtns}>
+        <div className="filter-btns">
           {buttonGroup ? renderButtonGroup() : null}
         </div>
       </div>
