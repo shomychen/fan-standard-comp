@@ -3,6 +3,7 @@
 
 @spec-card-padding: @padding-xs;
 @spec-card-background: @background-color-base;
+@spec-table-hover-border-color: fade(@primary-color, 50%);
 :global {
   .standard-table {
     .ant-table-middle ~ .ant-table-pagination {
@@ -33,6 +34,7 @@
     .ant-table-tbody {
       background: transparent;
     }
+    .ant-table-fixed-left .ant-table-thead >tr>th:first-child{ padding:0;}
     //&.ant-card {
     //  background: transparent;
     //}
@@ -60,6 +62,150 @@
   .spec-pagination {
     .ant-pagination-total-text {
       float: left;
+    }
+  }
+
+  .ant-table {
+    // 固定左侧列的样式
+    .ant-table-fixed-left table {
+      &.ant-table-fixed {
+        .ant-table-thead > tr > th,
+        .ant-table-tbody > tr > td {
+          &:first-child {
+            padding-right: @padding-md/2;
+          }
+          padding-right: @padding-md/2;
+        }
+      }
+    }
+    // 固定右侧列的样式
+    .ant-table-fixed-right table {
+      &.ant-table-fixed {
+        .ant-table-thead > tr > th,
+        .ant-table-tbody > tr > td {
+          &:first-child {
+            padding-left: @padding-md/2;
+          }
+          &:nth-last-child(1) {
+            padding-left: @padding-md/2;
+            padding-right: @padding-md;
+          }
+          padding-right: @padding-md/2;
+        }
+      }
+    }
+    table {
+      font-size: @font-size-base; // 14px
+      //color: #707070;
+      > .ant-table-thead {
+        > tr > th {
+          color: @text-color;
+          font-weight: bold;
+          font-size: @font-size-lg;
+          border-bottom: 0;
+        }
+      }
+      > .ant-table-expand-icon-th, .ant-table-row-expand-icon-cell {
+      }
+      .ant-table-row-expand-icon {
+        width: 15px;
+        height: 15px;
+        display: inherit;
+        vertical-align: middle;
+        color: @primary-color;
+        line-height: 12px;
+        border-color: @primary-color;
+      }
+      .ant-table-thead > tr > th {
+        //min-width: 60px;
+        //padding: 14px @padding-md/2;
+        //&.ant-table-selection-column {
+        //  width: 15px;
+        //  height: 15px;
+        //  color: @primary-color;
+        //  line-height: 12px;
+        //  border-color: @primary-color;
+        //}
+        &:first-child {
+          padding-left: @padding-md;
+        }
+        &:last-child {
+          padding-right: @padding-md;
+        }
+      }
+      .ant-table-tbody > tr > td {
+        padding: 12px @padding-md/2;
+        &:first-child {
+          padding-left: @padding-md;
+        }
+      }
+      .ant-table-tbody > tr > td {
+        padding: 12px @padding-md/2;
+        &:first-child {
+          padding-left: @padding-md;
+          border-left: 1px solid transparent;
+        }
+        &:last-child {
+          padding-right: @padding-md;
+          border-right: 1px solid transparent;
+        }
+      }
+      .ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row),
+      .ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row),
+      .ant-table-thead > tr:hover:not(.ant-table-expanded-row),
+      .ant-table-tbody > tr:hover:not(.ant-table-expanded-row) {
+        > td {
+          position: relative;
+          border-color: @spec-table-hover-border-color;
+          &::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: 100%;
+            border-top: 1px solid @spec-table-hover-border-color;
+            content: '';
+          }
+        }
+      }
+      //.ant-table-tbody > tr.ant-table-expanded-row,
+      //.ant-table-tbody > tr.ant-table-expanded-row:hover {
+      //  background: #f9f9fb;
+      //}
+      .ant-table-expand-icon-th, .ant-table-row-expand-icon-cell {
+        width: 40px;
+        min-width: 40px !important;
+        text-align: center;
+      }
+    }
+    //.ant-table-small > .ant-table-content > .ant-table-body > table > .ant-table-thead > tr > th
+    &.ant-table-small {
+      > .ant-table-content > .ant-table-body {
+        margin: 0;
+        > table {
+          font-size: 14px;
+          > .ant-table-thead {
+            > tr > th {
+              font-weight: bold;
+              font-size: @font-size-base; // 14px
+              background: @table-header-bg;
+            }
+          }
+          > .ant-table-thead > tr > th,
+          > .ant-table-tbody > tr > td {
+            &:first-child {
+              padding-left: @table-padding-horizontal;
+            }
+            &:last-child {
+              padding-right: @table-padding-horizontal;
+            }
+          }
+        }
+      }
+      .ant-empty-normal {
+        margin: 0;
+      }
+
     }
   }
 }

@@ -33,6 +33,8 @@ size="md"
 | formPostfix | 表单组后置结构 |  Function(modalForm, modalProps)| - |- |
 | confirmText | 保存按钮文本 | String | '取消' | |
 | cancelText | 取消按钮文本 | String | '取消' | |
+| disabledAll | 配置化表单全部禁用 | Boolean | false | |
+| viewOnly | 配置化表单全部只显示值，不显示控件 | Boolean | false | |
 
 
 

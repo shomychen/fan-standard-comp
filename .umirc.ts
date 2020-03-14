@@ -33,6 +33,14 @@ const config: IConfig =  {
       dynamicImport: false,
       title: '演示站点',
       dll: false,
+      locale: {
+        // default false
+        enable: false,
+        // default zh-CN
+        default: 'zh-CN',
+        // default true, when it is true, will use `navigator.language` overwrite default
+        baseNavigator: false,
+      },
       routes: {
         exclude: [
           /models\//,

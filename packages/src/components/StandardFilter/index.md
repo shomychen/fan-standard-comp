@@ -169,3 +169,6 @@ export default StandardFilterDemo;
 | icon | 图标类名 | String | 否 |
 | type | 按钮类型 | String | 否 |
 | fn | 按钮点击事件 | Function | 否 |
+| code | 权限code，可决定name即按钮上的显示值，覆盖name值 | String | 否 |
+| exName | 当设置code时，会优先使用exName作为按钮上的文本显示值 | String | 否 |
+| isHide | 隐藏当前按钮 | Boolean | 否 |

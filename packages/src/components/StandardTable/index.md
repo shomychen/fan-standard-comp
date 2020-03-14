@@ -99,9 +99,20 @@ rowKey='id'
 ## API
 | 参数      | 说明                                      | 类型         | 默认值 | 参考值 |
 |----------|------------------------------------------|-------------|-------|-------|
-| hideOrderNumber | 是否隐藏显示序号 | Boolean | false |- |
+| hideOrderNumber | 是否隐藏“序号”列 | Boolean | false |- |
 | data | 数据源 | Object | - |{list: [], pagination: {} } |
-| columns |  表格列配置| Array | - |[{ title: '序号', key: 'orderNum', render: ()=> {} }] |
+| columns |  表格列配置| Array | - | [Column参数](https://3x.ant.design/components/table-cn/#Column) |
 | onChange | 页码切换事件 |  Function(pagination)  | - |- |
 
+
+## columns 列参数配置 API
+| 参数字段      | 说明  |   类型   |必选项| 参考值|
+|----------|------|-------------|------|------|
+| title | 表头标题 | String 或 ReactNode | 是 |- |
+| key | 当前列的键值 | String | 是 |  |
+| dataIndex | 当前列值与数据匹配的字段名 | String | 否 |  |
+| align | 	设置列的对齐方式 | String | 否 |  |
+| render | 可自定义行内显示结构 | Function ReactNode | 否 | - |
+| 扩展：type | 可配置当前列属于“操作列” | String | 否 | 'action' |
+| 扩展：buttonGroup | 操作列的按钮配置 | Array or ReactNode | 否 | - |
 

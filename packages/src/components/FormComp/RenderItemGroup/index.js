@@ -7,7 +7,7 @@ import FieldComponent from '../FieldComponent';
 const FormItem = Form.Item
 
 const RenderItemGroup = (props) => {
-  const { form, itemGroup, size = 'md', disabledAll = false, getFormFields, colSpan, displayLayout } = props
+  const { form, itemGroup, size = 'md', disabledAll = false,  viewOnly = false ,getFormFields, colSpan, displayLayout } = props
   const setColSpan = (display, modalSize) => {
     if (display === 'block' || modalSize === 'xs') {
       return 24
@@ -45,17 +45,19 @@ const RenderItemGroup = (props) => {
           return (
             <Col key={index} span={item.colSpan || setColSpan(item.display, size)}>
               <FormItem
-                label={description ? (<span>{label}&nbsp; <Tooltip title={description}><Icon type="info-circle" /></Tooltip></span>) : label}
+                className={viewOnly ? 'no-margin-bottom' : ''}
+                label={description ? (<span>{label}&nbsp;<Tooltip title={description}><Icon type="info-circle" /></Tooltip></span>) : label}
                 {...formLayout}
                 {...item.protoFormItem}
                 required={item.required}
               >
                 {
-                  type === 'custom' && customRender ? customRender(props.form, { ...item }, disabledAll) : (<>
-                    {preExtra && preExtra()}
+                  type === 'custom' && customRender ? customRender(props.form, { ...item }, disabledAll, viewOnly) : (<>
+                    {preExtra && preExtra() } {/* 定义表单前内容结构 */}
                     {form.getFieldDecorator(filedName, filedOptions)(
                       <FieldComponent {...item}
                                       disabledAll={disabledAll}
+                                      viewOnly={viewOnly}
                                       onChange={(val) => {
                                         updateFormFields({ [item.filedName]: val })
                                         if (item.onChange) item.onChange(val, form)
@@ -64,7 +66,7 @@ const RenderItemGroup = (props) => {
                         // style={{ 'width': item.extra ? '90%' : '100%' } || { ...display ? general.formItemStyle.wide : general.formItemStyle.sm }}
                       />,
                     )}
-                    {extra && extra()}
+                    {extra && extra()} {/* 定义表单后前内容结构 */}
                   </>)
                 }
 

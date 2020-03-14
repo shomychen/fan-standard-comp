@@ -23,6 +23,7 @@ const StandardTable = React.forwardRef((props, ref) => {
     align: 'center',
     title: '序号',
     key: 'orderNum',
+    fixed: 'left',
     // render: (text, o, index) => pagination ?  (pagination.current - 1) * pagination.pageSize + index + 1 : index + 1,
     render: (text, record, index) => index + 1,
   }]
@@ -41,10 +42,11 @@ const StandardTable = React.forwardRef((props, ref) => {
   if (columns) {
     columns.map((colItem) => {
       if (colItem.type === 'action') {
-        colItem.width = colItem.width || (colItem.buttonGroup.length > 1 ? 110 : 80)
+        colItem.width = colItem.width || (colItem.buttonGroup.length > 1 ? 120 : 80)
         colItem.align = 'center'
         colItem.title = '操作'
         colItem.key = 'control'
+        colItem.fixed = colItem.fixed || 'right'
         colItem.render = (text, record, rowIndex) => {
           const btnIsHide = (isHide) => {
             if (!isHide) return false
@@ -55,6 +57,7 @@ const StandardTable = React.forwardRef((props, ref) => {
           }
           // 按钮列表组
           const renderButtonGroup = (buttonGroup) => {
+            buttonGroup = buttonGroup.filter(item => item && !btnIsHide(item.isHide)); // 排除隐藏isHide的数据
             const btn = (bItem, index) => {
               if (bItem.render) return bItem.render;
               if (bItem.code && _.findIndex(funcCode.btnFuncCodes, (btnItem) => btnItem.code === bItem.code) !== -1) {
@@ -107,9 +110,9 @@ const StandardTable = React.forwardRef((props, ref) => {
                           {
                             gItem.code === 'codeBtnDelete' ? <a disabled={gItem.disabled}
                                                                 onClick={gItem.fn ? () => {
-                                setPopVisibleIndex(rowIndex)
-                                setPopRow(gItem)
-                              } : null}>{gItem.exName || gItem.name}</a>
+                                                                  setPopVisibleIndex(rowIndex)
+                                                                  setPopRow(gItem)
+                                                                } : null}>{gItem.exName || gItem.name}</a>
                               : <a onClick={gItem.fn ? () => gItem.fn(text, record, rowIndex) : null}
                                    disabled={gItem.disabled}>{gItem.exName || gItem.name}</a>
                           }
@@ -181,6 +184,7 @@ const StandardTable = React.forwardRef((props, ref) => {
         pagination={paginationProps}
         onChange={handleTableChange}
         columns={resetColumns}
+        scroll={{ x: 'max-content' }}
         locale={{
           filterConfirm: '确定',
           filterReset: '重置',

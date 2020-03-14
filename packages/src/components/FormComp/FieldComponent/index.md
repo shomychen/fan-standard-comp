@@ -24,4 +24,7 @@ import {FieldComponent} from 'fan-standard-comp';
 | treeData | 'tree-select'数据源 | Array | - |- |
 | treeOptionName | 指定'tree-select'结构的数据字段 | Object |  { title: 'title', value: 'value', children: 'children' } |- |
 | onChange | 控件触发更新事件 | Function |   |- |
+| disabledAll | 控件禁用无法操作 | Boolean |   |- |
+| viewOnly | 只读，仅显示返回的值，不显示控件结构 | Boolean |   |- |
+
 

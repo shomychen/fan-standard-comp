@@ -132,9 +132,9 @@ const StandardFilter = React.forwardRef((props, ref) => {
             </FormItem>
           </> : null}
         </div>
-        <div className="filter-btns">
-          {buttonGroup ? renderButtonGroup() : null}
-        </div>
+        {
+          buttonGroup ?  <div className="filter-btns">{renderButtonGroup()}</div> : null
+        }
       </div>
     </Form>)
 })
