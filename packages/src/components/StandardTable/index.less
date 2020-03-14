@@ -34,7 +34,9 @@
     .ant-table-tbody {
       background: transparent;
     }
-    .ant-table-fixed-left .ant-table-thead >tr>th:first-child{ padding:0;}
+    .ant-table-fixed-left .ant-table-thead > tr > th:first-child {
+      padding: 0;
+    }
     //&.ant-card {
     //  background: transparent;
     //}
@@ -42,7 +44,7 @@
       .spec-scrollbar-base()
     }
     .spec-table-dropdown {
-      li a[disabled]{
+      li a[disabled] {
         color: @disabled-bg;
         cursor: not-allowed;
         pointer-events: none;
@@ -67,11 +69,12 @@
 
   .ant-table {
     // 固定左侧列的样式
-    .ant-table-fixed-left table {
-      &.ant-table-fixed {
+    .ant-table-fixed-left {
+      table.ant-table-fixed {
         .ant-table-thead > tr > th,
         .ant-table-tbody > tr > td {
           &:first-child {
+            padding-left: @padding-md;
             padding-right: @padding-md/2;
           }
           padding-right: @padding-md/2;
@@ -79,8 +82,8 @@
       }
     }
     // 固定右侧列的样式
-    .ant-table-fixed-right table {
-      &.ant-table-fixed {
+    .ant-table-fixed-right {
+      table.ant-table-fixed {
         .ant-table-thead > tr > th,
         .ant-table-tbody > tr > td {
           &:first-child {
