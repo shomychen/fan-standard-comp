@@ -23,7 +23,7 @@ const StandardTable = React.forwardRef((props, ref) => {
     align: 'center',
     title: '序号',
     key: 'orderNum',
-    fixed: 'left',
+    // fixed: 'left',
     // render: (text, o, index) => pagination ?  (pagination.current - 1) * pagination.pageSize + index + 1 : index + 1,
     render: (text, record, index) => index + 1,
   }]
@@ -46,7 +46,7 @@ const StandardTable = React.forwardRef((props, ref) => {
         colItem.align = 'center'
         colItem.title = '操作'
         colItem.key = 'control'
-        colItem.fixed = colItem.fixed || 'right'
+        // colItem.fixed = colItem.fixed || 'right'
         colItem.render = (text, record, rowIndex) => {
           const btnIsHide = (isHide) => {
             if (!isHide) return false
@@ -184,7 +184,6 @@ const StandardTable = React.forwardRef((props, ref) => {
         pagination={paginationProps}
         onChange={handleTableChange}
         columns={resetColumns}
-        scroll={{ x: 'max-content' }}
         locale={{
           filterConfirm: '确定',
           filterReset: '重置',
