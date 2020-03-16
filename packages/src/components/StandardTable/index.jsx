@@ -17,7 +17,7 @@ const StandardTable = React.forwardRef((props, ref) => {
     }
   };
 
-  const { data = {}, rowKey, rowSelection, columns, hideOrderNumber, className, emptyText, ...rest } = props;
+  const { data = {}, rowKey, rowSelection, columns, hideOrderNumber, orderNumber = {}, className, emptyText, ...rest } = props;
   let resetColumns = [{
     width: 58,
     align: 'center',
@@ -26,6 +26,7 @@ const StandardTable = React.forwardRef((props, ref) => {
     // fixed: 'left',
     // render: (text, o, index) => pagination ?  (pagination.current - 1) * pagination.pageSize + index + 1 : index + 1,
     render: (text, record, index) => index + 1,
+    ...orderNumber,
   }]
   const { list = [], pagination } = data;
 

@@ -100,6 +100,7 @@ rowKey='id'
 | 参数      | 说明                                      | 类型         | 默认值 | 参考值 |
 |----------|------------------------------------------|-------------|-------|-------|
 | hideOrderNumber | 是否隐藏“序号”列 | Boolean | false |- |
+| orderNumber | 配置“序号列”相关参数，如{fixed: 'left'}等 | Object | {} |- |
 | data | 数据源 | Object | - |{list: [], pagination: {} } |
 | columns |  表格列配置| Array | - | [Column参数](https://3x.ant.design/components/table-cn/#Column) |
 | onChange | 页码切换事件 |  Function(pagination)  | - |- |
