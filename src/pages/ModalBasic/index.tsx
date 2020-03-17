@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import styles from "./index.less";
 import moment from 'moment';
-import {Input, Button, Tooltip, Icon, Form} from "antd";
-import {StandardModal, StandardFilter} from "../../../packages/src";
+import {Input, Button, Tooltip, Icon, Form, Radio} from "antd";
+import {StandardModal, StandardFilter, Uploader} from "../../../packages/src";
 import {general} from '../../../packages/src/data';
 // import {StandardFilter} from 'fan-standard-comp';
 
@@ -18,7 +18,6 @@ const ModalBasic = (props) => {
   const showModal = () => {
     setVisble(true)
   };
-
   const handleOk = e => {
     console.log(e);
     setVisble(false)
@@ -356,6 +355,15 @@ const ModalBasic = (props) => {
       }
     },
     {
+      label: '上传文件',
+      type: 'uploader',
+      filedName: 'photo',
+      filedOptions: {},
+      protoConfig: {
+        fileType: 'office' // 支持文件 .doc,.docx,.pdf,.xls,.xlsx
+      }
+    },
+    {
       label: '备注',
       type: 'textarea',
       filedName: 'cateMark',
@@ -386,6 +394,25 @@ const ModalBasic = (props) => {
           </div>
           <span className="text-warning"> 自定义表单组合必须是经过封装成"表单控件"，不然无法识别到对应的值</span>
         </div>)
+      }
+    },
+
+    {
+      label: '上传图片',
+      type: 'custom',
+      filedName: 'pic',
+      required: true,
+      display: 'block',
+      customRender: (itemForm, itemData) => {
+        return ( <FormItem>
+          {itemForm.getFieldDecorator(itemData.filedName, {
+            rules: [{ required: false, message: '请上传图片' }],
+          })(
+            <Uploader
+              name="maintainPics"
+              fileType="image"
+            />,
+          )}</FormItem>)
       }
     },
     {
@@ -516,8 +543,8 @@ const ModalBasic = (props) => {
             <Button onClick={() => setModalSetting({...modalSetting, size: 'lg'})} type={'primary'}>lg:1000px</Button>
           </div>
           <div style={{'textAlign': 'center', marginBottom: '10px'}}>更改弹窗配置:
-            <Button onClick={() => setModalSetting({...modalSetting, disabledAll: true})} type={'primary'}>禁用弹窗配置的表单</Button>
-            <Button onClick={() => setModalSetting({...modalSetting, viewOnly: true})} type={'primary'}>弹窗仅显示详情信息</Button>
+            <Button onClick={() => setModalSetting({...modalSetting, viewOnly: false, disabledAll: true})} type={'primary'}>禁用弹窗配置的表单</Button>
+            <Button onClick={() => setModalSetting({...modalSetting, viewOnly: true, disabledAll: false})} type={'primary'}>弹窗仅显示详情信息</Button>
           </div>
         </StandardModal>
       </div>

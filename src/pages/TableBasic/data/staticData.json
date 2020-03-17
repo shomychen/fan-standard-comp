@@ -1,0 +1,132 @@
+{
+  "tableData": [
+    {
+      "id": "func0",
+      "name": "删除",
+      "code": "btnDelete",
+      "funcUrl": "/system/menu",
+      "status": "Y",
+      "sorts": "0",
+      "isIn": "N",
+      "isShow": "N",
+      "progress": "ing"
+    },
+    {
+      "id": "func1",
+      "name": "新增",
+      "code": "btnAdd",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "N",
+      "progress": "fail"
+    },
+    {
+      "id": "func2",
+      "name": "新增",
+      "code": "btnAdd",
+      "funcUrl": "/system/menu",
+      "status": "Y",
+      "sorts": "0",
+      "isShow": "N",
+      "progress": "fail"
+    },
+    {
+      "id": "func3",
+      "name": "删除",
+      "code": "btnDelete",
+      "funcUrl": "/system/menu",
+      "status": "Y",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "N",
+      "progress": "success"
+    },
+    {
+      "id": "func4",
+      "name": "删除",
+      "code": "btnAdd",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isShow": "N",
+      "progress": "default"
+    },
+    {
+      "id": "func5",
+      "name": "编辑",
+      "code": "btnAdd",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "Y",
+      "progress": "warning"
+    },
+    {
+      "id": "func6",
+      "name": "删除",
+      "code": "btnDelete",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "N",
+      "progress": "newer"
+    },
+    {
+      "id": "func7",
+      "name": "删除",
+      "code": "btnAdd",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "N",
+      "isShow": "N"
+    },
+    {
+      "id": "func8",
+      "name": "新增",
+      "code": "btnEdit",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "Y"
+    },
+    {
+      "id": "func9",
+      "name": "新增",
+      "code": "btnDelete",
+      "funcUrl": "/system/menu",
+      "status": "Y",
+      "sorts": "0",
+      "isIn": "N",
+      "isShow": "N"
+    },
+    {
+      "id": "func10",
+      "name": "编辑",
+      "code": "btnEdit",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "N"
+    },
+    {
+      "id": "func11",
+      "name": "新增",
+      "code": "btnEdit",
+      "funcUrl": "/system/menu",
+      "status": "N",
+      "sorts": "0",
+      "isIn": "Y",
+      "isShow": "Y"
+    }
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
