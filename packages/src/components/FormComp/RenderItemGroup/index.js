@@ -45,7 +45,6 @@ const RenderItemGroup = (props) => {
           return (
             <Col key={index} span={item.colSpan || setColSpan(item.display, size)}>
               <FormItem
-                hideRequiredMark={(item.protoFormItem && item.protoFormItem.hideRequiredMark) || viewOnly} // 只展示文本时，隐藏 * 号
                 className={viewOnly ? 'form-item-view-only' : ''}
                 label={description ? (<span>{label}&nbsp;<Tooltip title={description}><Icon type="info-circle" /></Tooltip></span>) : label}
                 {...formLayout}

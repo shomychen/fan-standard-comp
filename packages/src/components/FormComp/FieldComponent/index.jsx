@@ -1,6 +1,7 @@
 import React from "react";
 import moment from 'moment'
 import { Input, Select, Checkbox, InputNumber, TreeSelect, DatePicker, Radio, Upload, Icon, Button } from "antd";
+import Uploader from '../Uploader'
 
 const { TextArea, Password } = Input;
 const Option = Select.Option;
@@ -166,6 +167,9 @@ const FieldComponent = React.forwardRef((props, ref) => {
             </Button>
         }
       </Upload>
+      break;
+    case 'uploader':
+      compContent = <Uploader {...defaultProps}></Uploader>
       break;
     default:
       compContent = null

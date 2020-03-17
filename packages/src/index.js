@@ -10,6 +10,7 @@ export { default as FieldComponent } from './components/FormComp/FieldComponent'
 export { default as RenderItemGroup } from './components/FormComp/RenderItemGroup';
 export { default as VarTemplate } from './components/FormComp/VarTemplate';
 export { default as EditButton } from './components/FormComp/EditButton';
+export { default as Uploader } from './components/FormComp/Uploader';
 
 export { default as SpecIcon } from './components/SpecIconFont';
 
