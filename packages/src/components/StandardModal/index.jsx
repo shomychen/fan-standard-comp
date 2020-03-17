@@ -6,13 +6,18 @@ import RenderItemGroup from '../FormComp/RenderItemGroup';
 import filedsValueFormat from '../FormComp/filedsValueFormat.js';
 
 class StandardModal extends React.Component {
+  static getDerivedStateFromProps(nextProps) {
+    const { title, footer, footerRender, footerButtonGroup } = nextProps
+    return {
+      bodyMaxHeight: `${document.body.offsetHeight - (title ? 55 : 0) - ((footer || footerRender || footerButtonGroup) ? 55 : 0) - 160 - 32}px`,
+    };
+  }
 
   constructor(props) {
     super(props);
-    const { title, footer, footerRender, footerButtonGroup } = props
     this.state = {
       // 160px代表上下空白间距， 32px为内容区内部的上下padding值
-      bodyMaxHeight: `calc(${document.body.offsetHeight}px - ${title ? 55 : 0}px - ${(footer || footerRender || footerButtonGroup) ? 55 : 0}px - 160px - 32px)`
+      bodyMaxHeight: `auto`,
     }
   }
 
@@ -27,7 +32,7 @@ class StandardModal extends React.Component {
   initBodyMaxHeight = () => {
     const { title, footer, footerRender, footerButtonGroup } = this.props
     this.setState({
-      bodyMaxHeight: `calc(${document.body.offsetHeight}px - ${title ? 55 : 0}px - ${(footer || footerRender || footerButtonGroup) ? 55 : 0}px - 160px - 32px)`
+      bodyMaxHeight: `${document.body.offsetHeight - (title ? 55 : 0) - ((footer || footerRender || footerButtonGroup) ? 55 : 0) - 160 - 32}px`,
     })
   }
   handleSubmit = (e) => {
