@@ -6,22 +6,24 @@ name: StandardFilter
 
 > 用在表格上方的筛选工具栏
 
-## 基础用法
 
-```html
-import StandardFilter from '@/components/StandardFilter';
+import { Button , Divider, Tooltip ,Icon } from 'antd';
+import { Playground } from 'docz';
+import { StandardPanel, StandardFilter } from "fan-standard-comp";
 
-const StandardFilterDemo = (props) => {
+##  基础用法
+<Playground>
+ {() => {
+    const [counter, setCounter] = React.useState(0)
+ 
 // 按钮组配置
  const controlBtn = [
     {
       code: 'codeBtnAdd', // 新增 直接配置code可不用配置 name 与 icon
-      disabled: checkFuncPermission(props.route, 'codeBtnAdd'),
       fn: () => handleControlType('add'),
     },
     {
       code: 'codeBtnImport', // 导入 直接配置code可不用配置 name 与 icon
-      disabled: checkFuncPermission(props.route, 'codeBtnImport'),
       fn: () => handleControlType('edit'),
     },
     {
@@ -130,19 +132,17 @@ const controlFilters = [
     console.log('重置搜索表单')
   }
   
-   // 使用ref调用筛选组件内的重置表单事件 
-    const filterChild = React.createRef();
-   // filterChild.current.resetFields()
-   return (<StandardFilter buttonGroup={controlBtn} 
-                  formItemGroup={controlFilters}
-                  ref={filterChild}
-                  onFilterSearch={handleFilterSearch}
-                  onFilterReset={handleFilterReset}/>
-  ）
-};
+    return (
+     <>
+     <StandardFilter buttonGroup={controlBtn} 
+                       formItemGroup={controlFilters}
+                       onFilterSearch={handleFilterSearch}
+                       onFilterReset={handleFilterReset}/>
+     </>
+    )
+  }}
+</Playground>
 
-export default StandardFilterDemo;
-```
 
 ## API
 | 参数字段      | 说明  |   类型   |必选项| 默认值/参考值|

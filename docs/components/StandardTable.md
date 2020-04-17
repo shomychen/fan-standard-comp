@@ -3,9 +3,9 @@ menu: 通用组件
 name: StandardTable
 ---
 
-import { Button , Divider} from 'antd';
+import { Button , Divider, Tooltip ,Icon } from 'antd';
 import { Playground } from 'docz';
-import { StandardPanel, StandardTable } from "fan-standard-comp";
+import { StandardPanel, StandardTable , StandardFilter } from "fan-standard-comp";
 
 #  通用表格组件
 ##  基础用法
@@ -43,6 +43,7 @@ import { StandardPanel, StandardTable } from "fan-standard-comp";
       ),
     },
   ];
+  
   const tableData =  [
                         {
                           "id": "func0",
@@ -67,35 +68,13 @@ import { StandardPanel, StandardTable } from "fan-standard-comp";
                           "progress": "fail"
                         }
                       ]
+  
     return (
-     <>
-  <Button scale="small" type="primary">Click me</Button>
-  <StandardTable  columns={columns} data={{list: tableData}}></StandardTable>
-     </>
+     <StandardTable  columns={columns} data={{list: tableData}}></StandardTable>
     )
   }}
 </Playground>
 
-## 基本用法
-
-```
-import { StandardTable } from 'fan-standard-comp'
-<StandardTable
-title="新增设备管理"
-type="form"
-size="md"
-rowKey='id'
- loading={queryLoading}
-                data={roleData}
-                columns={this.columns}
-                onChange={(pagination) => refreshFetching(
-                  Object.assign({
-                    page: pagination.current,
-                    size: pagination.pageSize
-                  }, parentId ? { parentId } : {})
-                )}
-></StandardTable>
-```
 ## API
 | 参数      | 说明                                      | 类型         | 默认值 | 参考值 |
 |----------|------------------------------------------|-------------|-------|-------|

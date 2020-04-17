@@ -17,6 +17,7 @@ size="md"
 ```
 ## 配置化表单用法
 
+
 ## API
 | 参数      | 说明                                      | 类型         | 默认值 | 参考值 |
 |----------|------------------------------------------|-------------|-------|-------|
@@ -33,7 +34,8 @@ size="md"
 | formPostfix | 表单组后置结构 |  Function(modalForm, modalProps)| - |- |
 | confirmText | 保存按钮文本 | String | '取消' | |
 | cancelText | 取消按钮文本 | String | '取消' | |
-
+| disabledAll(将会弃用，替换使用fieldStatus="disabled") | 配置化表单全部禁用 | Boolean | false | |
+| fieldStatus | 配置化表单展示状态：“viewOnly 只显示值不显示控件”或者"disabled:控件禁用" | String | 'defalut' | |
 
 
 

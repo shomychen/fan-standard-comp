@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import _ from 'lodash';
 import FieldComponent from '../FormComp/FieldComponent';
 import filedsValueFormat from '../FormComp/filedsValueFormat.js';
 import { funcCode, general } from '../../data';
 import { Form, Button, Icon, Menu, Dropdown, Select, Checkbox } from 'antd';
-import  './index.less';
+import './index.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 const CheckboxGroup = Checkbox.Group;
 const StandardFilter = React.forwardRef((props, ref) => {
-  const { form, buttonGroup, formItemGroup, onFilterSearch, onFilterReset } = props;
+  const { form, buttonGroup, formItemGroup, onFilterSearch, onFilterReset, className, style } = props;
   const { getFieldDecorator } = form
   const handleSearch = (e) => {
     e.preventDefault();
@@ -35,6 +35,14 @@ const StandardFilter = React.forwardRef((props, ref) => {
       onFilterReset(form.getFieldsValue())
     }
   }
+  const updateFormFields = (newVal) => {
+    if (newVal) form.setFieldsValue({ ...newVal })
+    if (form.getFormFields) form.getFormFields(form.getFieldsValue(), form)
+  }
+
+  useEffect(() => {
+    updateFormFields()
+  }, [])
 
   // 表单列表组 formItemGroup 类型为数组或者React.Node
   const renderFormItemGroup = () => {
@@ -47,7 +55,16 @@ const StandardFilter = React.forwardRef((props, ref) => {
               <FormItem key={item.filedName} label={item.label}>
                 {getFieldDecorator(item.filedName, { ...item.filedOptions })(
                   <FieldComponent {...item}
-                                  style={componentStyle || { ...general.formItemStyle.xsm }} />
+                                  onChange={(val) => {
+                                    updateFormFields({ [item.filedName]: val })
+                                    if (item.onChange) item.onChange(val, form)
+                                  }}
+                                  onPanelChange={(val) => {
+                                    updateFormFields({ [item.filedName]: val })
+                                    if (item.onPanelChange) item.onPanelChange(val, form)
+                                  }}
+                    // ...{item.type === 'checkbox' ? }general.formItemStyle.xsm
+                                  style={{ width: item.type === 'checkbox' || item.type === 'radio' ? 'auto' : general.formItemStyle.xsm.width, ...componentStyle }} />
                 )}
               </FormItem>
             )
@@ -119,7 +136,7 @@ const StandardFilter = React.forwardRef((props, ref) => {
     return buttonGroup;
   }
   return (
-    <Form layout="inline" onSubmit={(e) => handleSearch(e)} ref={ref}>
+    <Form layout="inline" onSubmit={(e) => handleSearch(e)} ref={ref} className={className} style={style}>
       <div className="filter-grid">
         <div className="filter-form">
           {formItemGroup ? <>
@@ -133,7 +150,7 @@ const StandardFilter = React.forwardRef((props, ref) => {
           </> : null}
         </div>
         {
-          buttonGroup ?  <div className="filter-btns">{renderButtonGroup()}</div> : null
+          buttonGroup ? <div className="filter-btns">{renderButtonGroup()}</div> : null
         }
       </div>
     </Form>)

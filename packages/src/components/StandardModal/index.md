@@ -34,7 +34,7 @@ size="md"
 | confirmText | 保存按钮文本 | String | '取消' | |
 | cancelText | 取消按钮文本 | String | '取消' | |
 | disabledAll | 配置化表单全部禁用 | Boolean | false | |
-| viewOnly | 配置化表单全部只显示值，不显示控件 | Boolean | false | |
+| fieldStatus | 配置化表单展示状态：“viewOnly 只显示值不显示控件”或者"disabled:控件禁用" | String | 'defalut' | |
 
 
 

@@ -4,17 +4,14 @@
     "@babel/preset-react"
   ],
   "plugins": [
-    "@babel/plugin-transform-arrow-functions",
-    "@babel/plugin-proposal-class-properties"
-  ],
-  "plugins": [
     [
       "import",
       {
         "libraryName": "antd",
         "libraryDirectory": "es",
         "style": "css"
-      }
+      },
+      "antd"
     ],
     [
       "import",
@@ -22,7 +19,10 @@
         "libraryName": "fan-standard-comp",
         "libraryDirectory": "es",
         "style": true
-      }
-    ]
+      },
+      "comp"
+    ],
+    "@babel/plugin-transform-arrow-functions",
+    "@babel/plugin-proposal-class-properties"
   ]
 }

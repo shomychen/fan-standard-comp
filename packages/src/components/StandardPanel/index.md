@@ -163,4 +163,4 @@ export default StandardPanelDemo;
 |----------|------|-------------|------|
 | activeKey | 当前选中按钮 | String | 是 |
 | list | 按钮组列表值 | Array(格式：[{ value: '1', label: '年'}]) | 否 |
-| onChange | 按钮点击事件 | Function(key) | 否 |
+| onChange | 按钮点击事件 | Function(key, checkedData) | 否 |

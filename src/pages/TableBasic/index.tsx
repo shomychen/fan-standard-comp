@@ -1,10 +1,10 @@
 import React, {useState, Fragment} from "react";
 import {Icon, Divider, Form, Input, Col, Row, Button, Card, Tooltip, message, Badge, Popconfirm, Tabs} from 'antd';
 import styles from './index.less';
-import {StandardModal} from 'fan-standard-comp';
+// import {StandardModal} from 'fan-standard-comp';
 import staticData from './data/staticData.json';
 import {general} from '../../../packages/src/data';
-import {StandardTable} from '../../../packages/src/';
+import {StandardTable, StandardModal} from '../../../packages/src/';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -188,6 +188,11 @@ const TableBiscDemo = (props) => {
   // 编辑表单弹窗
   const [editModalSize, setEditModalSize] = useState('md')
   const [editVisible, setEditVisible] = useState(false)
+  const [modalSetting, setModalSetting] = useState({
+    visible: false,
+    type: 'form',
+    size: 'md',
+  })
   const modalControlBtn = [
     {
       name: '提交审批',
@@ -218,12 +223,13 @@ const TableBiscDemo = (props) => {
     // 新增
     if (key === 'add') {
       console.log('新增')
-      setModalSetting({
-        ...modalSetting,
-        visible: true,
-        title: '新增代码管理',
-        confirmText: '保存并新增'
-      })
+      setEditVisible(true)
+      // setModalSetting({
+      //   ...modalSetting,
+      //   visible: true,
+      //   title: '新增代码管理',
+      //   confirmText: '保存并新增'
+      // })
     }
     // 删除
     if (key === 'delete') {
@@ -254,7 +260,7 @@ const TableBiscDemo = (props) => {
     setRateList([...rateList])
   }
 
-  return (<div className={styles.container}>
+  return (<div className="demo-container">
     <div id="components-modal-demo-basic">
       <StandardTable
         rowKey='id'

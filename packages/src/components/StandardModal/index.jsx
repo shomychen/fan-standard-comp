@@ -111,7 +111,7 @@ class StandardModal extends React.Component {
       formPostfix,
       disabledAll = false,
       getFormFields,
-      viewOnly, // 仅做展示（用于详情模块）
+      fieldStatus = 'defalut', // 控件状态： defalut默认， disabled禁用全部， viewOnly：仅显示内容不显示控件
     } = this.props;
     const { bodyMaxHeight } = this.state;
     return <Modal
@@ -132,7 +132,7 @@ class StandardModal extends React.Component {
             {formPrefix && formPrefix(form, this.props)}
             {
               formItemGroup && Array.isArray(formItemGroup) &&
-              <RenderItemGroup getFormFields={getFormFields} size={size} {...this.props} itemGroup={formItemGroup} disabledAll={disabledAll} viewOnly={viewOnly}/>
+              <RenderItemGroup getFormFields={getFormFields} size={size} {...this.props} itemGroup={formItemGroup} disabledAll={disabledAll || fieldStatus === 'disabled'} viewOnly={fieldStatus === 'viewOnly'}/>
             }
             {formPostfix && formPostfix(form, this.props)}
           </Row>

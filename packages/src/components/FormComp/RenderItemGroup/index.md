@@ -17,10 +17,10 @@ import {FormItemGroup} from 'fan-standard-comp';
 |----------|------------------------------------------|-------------|-------|-------|
 | itemGroup | 表单控件配置项组 | Array | - |- |
 | size | 栅格下label与控件布局比例 | String | md |可选:xs,sm,md,lg,lg |
-| disabledAll | 控件是否禁用 | Boolean |false  | -|
 | displayLayout | 自定义标签与控件栅格值 | Object |  |{labelCol: { span: 7 },  wrapperCol: { span: 15 },} |
-
-        
+| disabledAll(将弃用，使用 fieldStatus='disabled'替换)| 控件是否禁用 | Boolean | false | |
+| fieldStatus | 配置化表单展示状态：“viewOnly 只显示值不显示控件”或者"disabled:控件禁用" | String | 'defalut' | |
+      
 
 ### itemGroup API
 

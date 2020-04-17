@@ -47,10 +47,10 @@ export default {
         //   href: 'https://cdn.staticfile.org/antd/3.23.6/antd.min.css'
         // },
         // 代码器样式
-        // {
-        //   rel: 'stylesheet',
-        //   href: 'https://cdn.bootcss.com/codemirror/5.42.2/theme/dracula.min.css'
-        // }
+        {
+          rel: 'stylesheet',
+          href: 'https://cdn.bootcss.com/codemirror/5.42.2/theme/dracula.min.css'
+        }
       ]
     }
   },

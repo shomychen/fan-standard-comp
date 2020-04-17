@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   Upload,
   Button,
@@ -6,46 +6,110 @@ import {
   message,
 } from 'antd';
 import StandardModal from '../../StandardModal/index';
-const PreviewModal = (props) => {
+
+const Uploader = props => {
   const {
-    imageURL,
-    visible,
-    onCancel,
-  } = props;
-  return (
-    <StandardModal visible={visible} footer={null} onCancel={onCancel}>
-      <img alt="example" style={{ width: '100%' }} src={imageURL} />
-    </StandardModal>
-  )
-};
-const Uploader = React.forwardRef((props, ref) => {
-  const {
-    isOnly = false,
-    name = 'file',
-    value,
-    fileType,
+    isOnly = false,                     // 是否允许多传
+    value,                              // 回选值
+    fileType,                           // 文件类型  "image/office/zip..."
+    extraExt,                           // 额外的扩展名 ".gif,.jpeg..."
     children,
-    disabled,
-    showUploadList = true,
-    size = 2 * 1024 * 1024,
-    onChange = res => console.log(res),
-  } = props;
-  // 图片预览
-  const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
+    size = 2 * 1024 * 1024,             // 文件大小限制
+    onChange = () => {},                // 上传文件改变时的状态
+  } = props
+
+  // 图片预览数据
+  const [showConfig, setShowConfig] = useState({ visible: false, url: '' })
   // 用于展示的缩略图
-  const [fileList, setFileList] = useState([]);
-  // 配置
-  const config = { name };
-  config.accept = getAccept(fileType);
-  config.listType = fileType === 'image' ? 'picture-card' : 'text';
-  config.fileList = fileList;
-  config.showUploadList = showUploadList;
+  const [fileList, setFileList] = useState([])
+  useEffect(() => {
+    if (Object.prototype.toString.call(value) === '[object Array]') {
+      setFileList(value.map((file, index) => {
+        file.uid = index
+        file.url = file.downloadUrl
+        return file
+      }))
+      return
+    }
+    if (Object.prototype.toString.call(value) === '[object Object]') {
+      setFileList([{
+        uid: 0,
+        url: value.downloadUrl,
+        ...value,
+      }])
+      return
+    }
+    if (Object.prototype.toString.call(value) === '[object String]') {
+      setFileList([{
+        uid: 0,
+        url: value,
+        name: '附件'
+      }])
+      return
+    }
+  }, [])
+
+  // 点击文件链接或预览图标时的回调
+  const handlePreview = useCallback(async file => {
+    if (!file.url && !file.preview) {
+      const res = await getBase64(file.originFileObj);
+      if (res.status === 'success') {
+        file.preview = res.url;
+      }
+    }
+    setShowConfig({ visible: true, url: file.url || file.preview })
+  }, [setShowConfig]);
+
+  // 渲染预览窗口
+  const renderPreviewComponent = useMemo(
+    () => {
+      if (fileType === 'image') {
+        const { visible, url } = showConfig
+        return (
+          <StandardModal visible={visible} footer={null} onCancel={() => setShowConfig({ visible: false, url: '' })} >
+            <img style={{ width: '100%' }} src={url} alt=""/>
+          </StandardModal>
+        )
+      }
+      return null
+    },
+    [fileType, showConfig, setShowConfig]
+  )
+
+  // 展示按钮与否
+  const renderChildrenComponent = useMemo(
+    () => {
+      const renderButton = () => {
+        if (fileType === 'image') {
+          return (
+            <div>
+              <Icon type={'plus'} />
+              <div className="ant-upload-text">点击选择</div>
+            </div>
+          )
+        }
+        return (
+          <Button>
+            <Icon type={'plus'} /> 点击选择
+          </Button>
+        )
+      }
+      if (children) {
+        return <> {children} </>
+      }
+      if (isOnly && fileList.length === 1) {
+        return null
+      }
+      return <>{ renderButton() }</>
+    },
+    [fileType, isOnly, children, fileList]
+  );
+
   // 检查文件是否规范
-  const checkFile = file => {
+  const handleCheck = useCallback(file => {
     if (fileType === 'image') {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      if (!isJpgOrPng) {
+      const isImage= file.type === 'image/jpeg' || file.type === 'image/png';
+      if (!isImage) {
         message.error('只支持JPG/PNG格式的图片!');
         return false;
       }
@@ -56,106 +120,66 @@ const Uploader = React.forwardRef((props, ref) => {
       return false;
     }
     return true;
-  }
-  // 上传前的钩子，可以在此作一些对上传文件的限制拦截
-  const beforeUpload = file => {
-    return false;
-  };
+  }, [fileType, size])
 
-  // 上传文件改变时的状态
-  const handleChange = async res => {
+  const handleChange = useCallback(async (res) => {
     if (res.file.status === 'removed') {
-      setFileList(res.fileList);
+      setFileList(res.fileList)
       if (isOnly) {
-        onChange(res.fileList[0] && res.fileList[0].originFileObj);
+        onChange(res.fileList[0] && res.fileList[0].originFileObj)
       } else {
-        onChange(res.fileList);
+        onChange(res.fileList)
       }
-      return;
+      return
     }
-    const isOk = checkFile(res.file);
+    const isOk = handleCheck(res.file)
     if (isOk) {
-      let result;
+      let result
       const list = res.fileList.map(file => {
         if (!file.url) {
           file.url = file.thumbUrl
         }
-        return file;
+        return file
       });
-      result = [...list];
-      setFileList(list);
+      result = [...list]
+      setFileList(list)
       if (isOnly) {
-        onChange(result[0] && result[0].originFileObj);
+        onChange(result[0] && result[0].originFileObj)
       } else {
-        onChange(result);
+        onChange(result)
       }
     }
-  };
-  // 点击文件链接或预览图标时的回调
-  const onPreview = async file => {
-    if (!file.url && !file.preview) {
-      const res = await getBase64(file.originFileObj);
-      if (res.status === 'success') {
-        file.preview = res.url;
-      }
-    }
-    setPreviewImage(file.url || file.preview);
-    setPreviewVisible(true);
-  };
-  // 只有上传是图片才有预览功能
-  if (fileType === 'image') {
-    config.onPreview = onPreview;
-  }
-  // 渲染上传按钮样式
-  const renderChildren = () => {
-    if (fileType === 'image') {
-      return (
-        <div>
-          <Icon type={'plus'} />
-          <div className="ant-upload-text">点击选择</div>
-        </div>
-      )
-    }
-    return (
-      <Button>
-        <Icon type={'plus'} /> 点击选择
-      </Button>
-    )
-  };
+  }, [isOnly, onChange, handleCheck, setFileList])
 
-  useEffect(() => {
-    if (Object.prototype.toString.call(value) === '[object Array]') {
-      setFileList(value.map((file, index) => {
-        file.uid = index;
-        file.url = file.downloadUrl;
-        return file;
-      }));
-    }
-  }, []);
+  const accept = useMemo(
+    () => {
+      let res = getAccept(fileType)
+      if (extraExt) {
+        res = res + ',' + extraExt
+      }
+      return res
+    },
+    [fileType, extraExt]
+  )
 
   return (
     <>
       <Upload
         {...props}
-        {...config}
-        ref={ref}
-        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        className="file-uploader"
-        beforeUpload={beforeUpload}
+        accept={accept}
+        fileList={fileList}
+        listType={fileType === 'image' ? 'picture-card' : 'text'}
+        className="spec-uploader"
+        onPreview={fileType === 'image' ? handlePreview : () => {}}
+        beforeUpload={() => false}
         onChange={handleChange}
       >
-        {
-          children || isOnly ? (fileList.length === 1 ? null : renderChildren()) : (disabled ? null : renderChildren())
-        }
+        { renderChildrenComponent }
       </Upload>
-      <PreviewModal
-        visible={previewVisible}
-        imageURL={previewImage}
-        onCancel={() => setPreviewVisible(false)}
-      />
+      { renderPreviewComponent }
     </>
   )
-});
+}
 
 export default Uploader;
 

@@ -7,7 +7,7 @@ import FieldComponent from '../FieldComponent';
 const FormItem = Form.Item
 
 const RenderItemGroup = (props) => {
-  const { form, itemGroup, size = 'md', disabledAll = false,  viewOnly = false ,getFormFields, colSpan, displayLayout } = props
+  const { form, itemGroup, size = 'md', fieldStatus = 'default', disabledAll = false, getFormFields, colSpan, displayLayout } = props
   const setColSpan = (display, modalSize) => {
     if (display === 'block' || modalSize === 'xs') {
       return 24
@@ -45,22 +45,26 @@ const RenderItemGroup = (props) => {
           return (
             <Col key={index} span={item.colSpan || setColSpan(item.display, size)}>
               <FormItem
-                className={viewOnly ? 'form-item-view-only' : ''}
+                className={fieldStatus === 'viewOnly' ? 'form-item-view-only' : ''}
                 label={description ? (<span>{label}&nbsp;<Tooltip title={description}><Icon type="info-circle" /></Tooltip></span>) : label}
                 {...formLayout}
                 {...item.protoFormItem}
                 required={item.required}
               >
                 {
-                  type === 'custom' && customRender ? customRender(props.form, { ...item }, disabledAll, viewOnly) : (<>
-                    {preExtra && preExtra() } {/* 定义表单前内容结构 */}
+                    type === 'custom' && customRender ? customRender(props.form, { ...item }, fieldStatus === 'disabled' || disabledAll, fieldStatus) : (<>
+                    {preExtra && preExtra()} {/* 定义表单前内容结构 */}
                     {form.getFieldDecorator(filedName, filedOptions)(
                       <FieldComponent {...item}
-                                      disabledAll={disabledAll}
-                                      viewOnly={viewOnly}
+                                      disabledAll={fieldStatus === 'disabled' || disabledAll}
+                                      fieldStatus={fieldStatus}
                                       onChange={(val) => {
                                         updateFormFields({ [item.filedName]: val })
                                         if (item.onChange) item.onChange(val, form)
+                                      }}
+                                      onPanelChange={(val) => {
+                                        updateFormFields({ [item.filedName]: val })
+                                        if (item.onPanelChange) item.onPanelChange(val, form)
                                       }}
                                       style={componentStyle || { ...general.formItemStyle.wide }}
                         // style={{ 'width': item.extra ? '90%' : '100%' } || { ...display ? general.formItemStyle.wide : general.formItemStyle.sm }}

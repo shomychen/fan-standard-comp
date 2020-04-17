@@ -98,9 +98,12 @@ const ModalBasic = (props) => {
       selectOptions: []
     },
     {
-      label: '选项类型',
+      label: '选项d类型',
       type: 'checkbox',
       filedName: 'check',
+      // componentStyle: {
+      //   // width: '300px'
+      // },
       filedOptions: {
         rules: []
       },
@@ -148,7 +151,6 @@ const ModalBasic = (props) => {
         }
       ]
     },
-
     {
       label: '用户状态',
       type: 'select',
@@ -174,6 +176,16 @@ const ModalBasic = (props) => {
           id: '2'
         }
       ]
+    },
+    {
+      label: '时间筛选区域',
+      filedName: 'time',
+      type: 'rangePicker',
+      protoConfig: {
+        format: 'YYYY',
+        mode: ['year', 'year'],
+        placeholder: ['开始年份', "结束年份"]
+      }
     }
   ]
 
@@ -198,9 +210,15 @@ const ModalBasic = (props) => {
       // },
     },
     {
-      label: '日期时间',
+      label: '日期dd时间',
       type: 'dateTimePicker',
-      filedName: 'dateTime'
+      filedName: 'dateTime',
+      protoConfig: {
+        format: 'YYYY-MM-DD HH:mm',
+        showTime: {
+          format: 'HH:mm'
+        },
+      }
     },
     {
       label: '月选择',
@@ -222,7 +240,13 @@ const ModalBasic = (props) => {
       label: '日期时间区间',
       type: 'rangeTimePicker',
       filedName: 'dateRange-time',
-      display: 'block'
+      display: 'block',
+      protoConfig: {
+        format: 'YYYY-MM-DD HH:mm',
+        showTime: {
+          format: 'HH:mm'
+        },
+      }
     },
     {
       label: '输入框控件',
@@ -354,15 +378,15 @@ const ModalBasic = (props) => {
         console.log('选择更改', e)
       }
     },
-    {
-      label: '上传文件',
-      type: 'uploader',
-      filedName: 'photo',
-      filedOptions: {},
-      protoConfig: {
-        fileType: 'office' // 支持文件 .doc,.docx,.pdf,.xls,.xlsx
-      }
-    },
+    // {
+    //   label: '上传文件',
+    //   type: 'uploader',
+    //   filedName: 'photo',
+    //   filedOptions: {},
+    //   protoConfig: {
+    //     fileType: 'office' // 支持文件 .doc,.docx,.pdf,.xls,.xlsx
+    //   }
+    // },
     {
       label: '备注',
       type: 'textarea',
@@ -397,24 +421,24 @@ const ModalBasic = (props) => {
       }
     },
 
-    {
-      label: '上传图片',
-      type: 'custom',
-      filedName: 'pic',
-      required: true,
-      display: 'block',
-      customRender: (itemForm, itemData) => {
-        return ( <FormItem>
-          {itemForm.getFieldDecorator(itemData.filedName, {
-            rules: [{ required: false, message: '请上传图片' }],
-          })(
-            <Uploader
-              name="maintainPics"
-              fileType="image"
-            />,
-          )}</FormItem>)
-      }
-    },
+    // {
+    //   label: '上传图片',
+    //   type: 'custom',
+    //   filedName: 'pic',
+    //   required: true,
+    //   display: 'block',
+    //   customRender: (itemForm, itemData) => {
+    //     return ( <FormItem>
+    //       {itemForm.getFieldDecorator(itemData.filedName, {
+    //         rules: [{ required: false, message: '请上传图片' }],
+    //       })(
+    //         <Uploader
+    //           name="maintainPics"
+    //           fileType="image"
+    //         />,
+    //       )}</FormItem>)
+    //   }
+    // },
     {
       label: <div>
         <div>自己定义DOM结构</div>
@@ -424,7 +448,7 @@ const ModalBasic = (props) => {
     },
   ]
   return (
-    <div className={styles.container}>
+    <div className="demo-container">
       <div id="components-modal-demo-basic">
         <StandardFilter formItemGroup={controlFilters}
                         onFilterSearch={handleFilterSearch} />
@@ -543,8 +567,9 @@ const ModalBasic = (props) => {
             <Button onClick={() => setModalSetting({...modalSetting, size: 'lg'})} type={'primary'}>lg:1000px</Button>
           </div>
           <div style={{'textAlign': 'center', marginBottom: '10px'}}>更改弹窗配置:
-            <Button onClick={() => setModalSetting({...modalSetting, viewOnly: false, disabledAll: true})} type={'primary'}>禁用弹窗配置的表单</Button>
-            <Button onClick={() => setModalSetting({...modalSetting, viewOnly: true, disabledAll: false})} type={'primary'}>弹窗仅显示详情信息</Button>
+            {/*<Button onClick={() => setModalSetting({...modalSetting, disabledAll: true})} type={'primary'}>禁用弹窗配置的表单</Button>*/}
+            <Button onClick={() => setModalSetting({...modalSetting, fieldStatus: 'disabled'})} type={'primary'}>禁用弹窗配置的表单</Button>
+            <Button onClick={() => setModalSetting({...modalSetting, fieldStatus: 'viewOnly'})} type={'primary'}>弹窗仅显示详情信息</Button>
           </div>
         </StandardModal>
       </div>

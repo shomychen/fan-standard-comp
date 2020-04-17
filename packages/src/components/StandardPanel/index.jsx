@@ -47,7 +47,7 @@ const StandardPanel = props => {
         const {list, activeKey, onChange, className} = values;
         const handleChange = (e) => {
             if (onChange) {
-                onChange(e.target.value)
+                onChange(e.target.value, list.filter((data)=> data.value === e.target.value)[0])
             }
         }
         return <div className={className}>
@@ -73,7 +73,7 @@ const StandardPanel = props => {
             <div className="spec-panel-header">
                 <div className="spec-panel-title">
                     <div className={classNames(type === 'border' ? 'sub-header-line' : 'sub-header-base')}>
-                        <span>{popoverShow()}</span>
+                        <span className="header-text">{popoverShow()}</span>
                     </div>
                 </div>
                 <div className="spec-panel-inner">

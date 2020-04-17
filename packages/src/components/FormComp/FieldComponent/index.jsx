@@ -8,15 +8,15 @@ const Option = Select.Option;
 const { TreeNode } = TreeSelect;
 const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
 
-const renderTreeNode = (data, dataOptionName) => data.map((item) => {
+const renderTreeNode = (data, dataOptionName, nodeProps) => data.map((item) => {
   if (item[dataOptionName.children] && item[dataOptionName.children].length > 0) {
     return (
-      <TreeNode title={item[dataOptionName.title]} key={item[dataOptionName.value]} value={item[dataOptionName.value]}>
+      <TreeNode title={item[dataOptionName.title]} key={item[dataOptionName.value]} value={item[dataOptionName.value]} {...nodeProps}>
         {renderTreeNode(item[dataOptionName.children], dataOptionName)}
       </TreeNode>
     );
   }
-  return <TreeNode title={item[dataOptionName.title]} key={item[dataOptionName.value]} value={item[dataOptionName.value]} />;
+  return <TreeNode title={item[dataOptionName.title]} key={item[dataOptionName.value]} value={item[dataOptionName.value]}  {...nodeProps} />;
 });
 // 表单组件类型
 const FieldComponent = React.forwardRef((props, ref) => {
@@ -25,8 +25,9 @@ const FieldComponent = React.forwardRef((props, ref) => {
     filedName,
     selectOptionName = { value: 'value', label: 'label', disabled: 'disabled' },
     treeOptionName = { title: 'title', value: 'value', children: 'children' },
+    fieldStatus = 'default',
     disabledAll = false,
-    viewOnly = false, // 是否纯展示
+    onPanelChange
   } = props;
   let { selectOptions } = props
   let compContent;
@@ -41,9 +42,10 @@ const FieldComponent = React.forwardRef((props, ref) => {
     })
   }
   const defaultProps = {
-    style, onChange, value, ...protoConfig, ref,
+    style, onChange, value, ref, onPanelChange, ...protoConfig
   }
-  if (disabledAll) {
+  if (!protoConfig || !protoConfig.mode) delete defaultProps.onPanelChange
+  if (fieldStatus === 'disabled' || disabledAll) {
     defaultProps.disabled = true // 父级配置disabledAll时，所有表单都为false
   }
   let sortLimitRule = {} // 排序字段长度限制
@@ -86,7 +88,7 @@ const FieldComponent = React.forwardRef((props, ref) => {
         return `${moment(value[0]).format(protoConfig && protoConfig.format || 'YYYY-MM-DD')} - ${moment(value[1]).format(protoConfig && protoConfig.format || 'YYYY-MM-DD')}`
         break;
       case 'rangeTimePicker':
-        return `${moment(value[0]).format(protoConfig && protoConfig.format|| 'YYYY-MM-DD  HH:mm:ss')} - ${moment(value[1]).format(protoConfig && protoConfig.format || 'YYYY-MM-DD  HH:mm:ss')}`
+        return `${moment(value[0]).format(protoConfig && protoConfig.format || 'YYYY-MM-DD  HH:mm:ss')} - ${moment(value[1]).format(protoConfig && protoConfig.format || 'YYYY-MM-DD  HH:mm:ss')}`
         break;
       case 'monthPicker':
         return moment(value).format(protoConfig && protoConfig.format || 'MM月');
@@ -97,26 +99,30 @@ const FieldComponent = React.forwardRef((props, ref) => {
     }
   }
   // 设置纯展示模式下的“下拉树”控件返回值
-
+  let viewOnly = fieldStatus === 'viewOnly' // 是否纯展示
   switch (type) {
     case 'input':
-      compContent = viewOnly ? (value || '-') : (<Input {...defaultProps} placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请输入')} maxLength={defaultProps.maxLength || 50} />)
+      compContent = viewOnly ? (value || '-') : (<Input placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请输入')}
+                                                        maxLength={defaultProps.maxLength || 50} {...defaultProps} />)
       break;
     case 'password':
       compContent = viewOnly ? (value || '-') : (
-        <Password {...defaultProps} autoComplete="new-password" placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请输入')} maxLength={defaultProps.maxLength || 50} />)
+        <Password autoComplete="new-password" placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请输入')}
+                  maxLength={defaultProps.maxLength || 50}
+                  {...defaultProps} />)
       break;
     case 'textarea':
       compContent = viewOnly ? (value || '-') : (
-        <TextArea {...defaultProps} placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请输入')} maxLength={defaultProps.maxLength || 500} />)
+        <TextArea placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请输入')} maxLength={defaultProps.maxLength || 500}  {...defaultProps} />)
       break;
     case 'inputNumber':
-      compContent = viewOnly ? (value || 0) : (<InputNumber {...defaultProps} {...sortLimitRule} placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请输入数字')} />)
+      compContent = viewOnly ? (value || 0) : (<InputNumber placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请输入数字')} {...sortLimitRule} {...defaultProps} />)
       break;
     case 'select':
       compContent = viewOnly ? setSelectValue(value) : (
-        <Select {...defaultProps} allowClear placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || `${defaultProps.showSearch ? '请输入选择' : '请选择'}`)}
+        <Select allowClear placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || `${defaultProps.showSearch ? '请输入选择' : '请选择'}`)}
                 filterOption={(input, option) => defaultProps.showSearch ? option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false}
+                {...defaultProps}
         >
           {selectOptions.map((val) =>
             <Option value={val.value}
@@ -127,33 +133,37 @@ const FieldComponent = React.forwardRef((props, ref) => {
       break;
     case 'tree-select':
       compContent = (
-        <TreeSelect {...defaultProps} placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请选择')}>
-          {renderTreeNode(treeData, treeOptionName)}
+        <TreeSelect placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请选择')} {...defaultProps} >
+          {renderTreeNode(treeData, treeOptionName, protoConfig.TreeNode)}
         </TreeSelect>)
       break;
     case 'checkbox':
-      compContent = viewOnly ? setSelectValue(value) : <Checkbox.Group options={selectOptions} {...defaultProps} style={{ width: 'auto' }} />
+      compContent = viewOnly ? setSelectValue(value) : <Checkbox.Group options={selectOptions}  {...defaultProps} style={{ width: 'auto', ...defaultProps.style }} />
       break;
     case 'radio':
-      compContent = viewOnly ? setSelectValue(value) : <Radio.Group options={selectOptions} {...defaultProps} style={{ width: 'auto' }} />
+      compContent = viewOnly ? setSelectValue(value) : <Radio.Group options={selectOptions}  {...defaultProps} style={{ width: 'auto', ...defaultProps.style }} />
       break;
     case 'datePicker':
     case 'dateTimePicker':
-      compContent = viewOnly ? setDatePickerValue(value) : <DatePicker {...defaultProps} showTime={type === 'dateTimePicker'} style={{ ...defaultProps.style, 'minWidth': 'auto' }}
+      compContent = viewOnly ? setDatePickerValue(value) : <DatePicker showTime={defaultProps.showTime || type === 'dateTimePicker'}
         // format={type === 'dateTimePicker' ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'}
-                                                                       placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请选择')} />
+                                                                       placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请选择')}
+                                                                       {...defaultProps}
+                                                                       style={{ 'minWidth': 'auto', ...defaultProps.style }} />
       break;
     case 'monthPicker':
-      compContent =  viewOnly ? setDatePickerValue(value) : <MonthPicker {...defaultProps} placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请选择')} />
+      compContent = viewOnly ? setDatePickerValue(value) : <MonthPicker placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请选择')}
+                                                                        {...defaultProps} />
       break;
     case 'rangePicker':
     case 'rangeTimePicker':
-      compContent = viewOnly ? setDatePickerValue(value) : <RangePicker {...defaultProps} showTime={type === 'rangeTimePicker'}
-                                                                        format={type === 'rangeTimePicker' ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD'}
-                                                                        style={{ width: type === 'rangeTimePicker' ? 'auto' : '100%' }} />
+      compContent = viewOnly ? setDatePickerValue(value) : <RangePicker showTime={defaultProps.showTime || type === 'rangeTimePicker'}
+                                                                        format={defaultProps.format || (type === 'rangeTimePicker' ? 'YYYY-MM-DD HH:mm:ss' : 'YYYY-MM-DD')}
+                                                                        {...defaultProps}
+                                                                        style={{ width: type === 'rangeTimePicker' ? 'auto' : '100%', ...defaultProps.style }} />
       break;
     case 'weekPicker ':
-      compContent = <WeekPicker {...defaultProps} placeholder={disabledAll ? '' : (defaultProps.placeholder || placeholder || '请选择')} />
+      compContent = <WeekPicker placeholder={(fieldStatus === 'disabled' || disabledAll) ? '' : (defaultProps.placeholder || placeholder || '请选择')} {...defaultProps} />
       break;
     // case 'custom':
     //   compContent = customRender && customRender(props) || null
