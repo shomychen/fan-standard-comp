@@ -87,7 +87,7 @@ const RefactorTree = props => {
     const currentDate = e.node.props.dataRef;
     const multiCheckedData = [];
     e.checkedNodes.map(item => multiCheckedData.push(item.props.dataRef)) // 多选条件下,当前选中所有节点数据
-    onCheck && onCheck(keys, e, currentDate, multiCheckedData, multiCheckedData)
+    onCheck && onCheck(keys, e, currentDate, multiCheckedData)
   }
 
   const handleNodeControl = (e, type, nodeData) => {

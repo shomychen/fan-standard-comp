@@ -4,11 +4,11 @@ export default {
   typescript: true,
   src: './docs', // 指定编辑转换的入口目录
   // files: '**/*.{md,markdown,mdx}',
-  title: "组件用法",
+  title: "通用组件用法v1.0",
   description: "这个是描述会加入到meta中",
   // port: 8011,
-  base: '/docs-site', // 非根路径打包，URL上添加一层级/comp-docs浏览
-  dest: 'docs-site', // 非根路径打包目录
+  base: '/doc-v1', // 非根路径打包，URL上添加一层级/comp-docs浏览
+  dest: 'doc-v1', // 非根路径打包目录
   // 忽略转换文件
   ignore: ['Readme.md'],
   // 菜单配置
@@ -17,24 +17,15 @@ export default {
     {
       name:"通用组件",
       menu: [
-        "StandardFilter",
-        "StandardModal",
-        "StandardPanel",
-        "StandardTable",
       ]
     },
     {
       name: "配置化表单",
-      menu: [
-        "基础控件",
-        "表单组"
-      ]
+      menu: []
     },
     {
       name: "数据展示",
-      menu: [
-        "tree 树"
-      ]
+      menu: []
     }
   ],
   // html页面配置

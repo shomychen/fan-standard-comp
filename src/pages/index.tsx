@@ -5,6 +5,7 @@ import TableBasic from './TableBasic';
 import UploadBasic from './UploadBasic';
 import PanelBasic from './PanelBasic';
 import styles from './index.less';
+import '../assets/Icon/fonts/iconfont.js'
 
 export default function () {
   return (

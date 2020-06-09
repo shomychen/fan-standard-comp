@@ -61,7 +61,3 @@ $ npm run build
 ` 2020-05-13`
 - FieldComponent
    - 优化 控件为禁用状态时， `placeholder`不显示值
-## 1.0.51（未发布）
-` 2020-05-18`
-- StandardTable
-   - 优化 表格列返回值为0时，显示值0

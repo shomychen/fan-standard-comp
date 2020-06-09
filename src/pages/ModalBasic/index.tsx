@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useRef, useState} from "react";
 import styles from "./index.less";
 import moment from 'moment';
 import {Input, Button, Tooltip, Icon, Form, Radio} from "antd";
@@ -9,6 +9,8 @@ import {general} from '../../../packages/src/data';
 const FormItem = Form.Item;
 
 const ModalBasic = (props) => {
+  const filterChildRef = useRef()
+  console.log(filterChildRef)
   const [visible, setVisble] = useState(false)
   const [modalSetting, setModalSetting] = useState({
     visible: false,
@@ -35,24 +37,6 @@ const ModalBasic = (props) => {
     console.log('按钮点击', type)
   };
 
-  const controlBtn = [
-    {
-      name: '导入',
-      icon: 'plus',
-      code: 'codeBtnImport', // 导入 直接配置code可不用配置 name 与 icon
-      fn: () => this.handleControlType('edit'),
-    },
-    {
-      name: '无code按钮',
-      icon: 'plus',
-      fn: () => this.handleControlType('add'),
-    },
-    {
-      name: '按钮3',
-      icon: 'plus',
-      fn: () => this.handleControlType('add'),
-    }
-  ]
   const controlFilters = [
     {
       label: (<span>是否系统内置&nbsp;
@@ -175,7 +159,10 @@ const ModalBasic = (props) => {
           title: '停用',
           id: '2'
         }
-      ]
+      ],
+      onChange: ()=> {
+        console.log('http://localhost:2002', filterChildRef.current)
+      }
     },
     {
       label: '时间筛选区域',
@@ -196,6 +183,53 @@ const ModalBasic = (props) => {
       visible: false
     })
   }
+  const controlBtn = [
+    {
+      name: '被禁用',
+      disabled: true,
+      code: 'codeBtnImport', // 导入 直接配置code可不用配置 name 与 icon
+      fn: () => handleControlType('edit'),
+    },
+    {
+      name: '被禁用方法',
+      disabled: (params)=> {
+        console.log('筛选按钮禁用无参数', params)
+        return true
+      },
+      // code: 'codeBtnImport', // 导入 直接配置code可不用配置 name 与 icon
+      fn: () => handleControlType('edit'),
+    },
+    {
+      name: '导入',
+      // isHide: true, // 隐藏掉的按钮
+      code: 'codeBtnImport', // 导入 直接配置code可不用配置 name 与 icon
+      fn: () => handleControlType('edit'),
+    },
+    {
+      name: '无code按钮',
+      // isHide: true, // 隐藏掉的按钮
+      // icon,
+      fn: () => handleControlType('add'),
+    },
+    {
+      name: '按钮3',
+      // isHide: true, // 隐藏掉的按钮
+      icon: 'plus', // 字符串，使用antd的图标
+      fn: () => handleControlType('add'),
+    },
+    {
+      name: '超过3个按钮',
+      // isHide: true, // 隐藏掉的按钮
+      icon: <Icon type="smile" />,
+      fn: () => handleControlType('add'),
+    },
+    {
+      name: '超过4个按钮',
+      // isHide: true, // 隐藏掉的按钮
+      icon: 'speci,plus', //  第一个参数代表图标前缀，第二个参数代表图标类名
+      fn: () => handleControlType('add'),
+    }
+  ]
   const formItemGroup = [
     {
       label: '日期类控件',
@@ -211,6 +245,7 @@ const ModalBasic = (props) => {
     },
     {
       label: '日期dd时间',
+      description: '菜单的类型决定URL、映射是否显示，平台、目录不显示，仅菜单时显示',
       type: 'dateTimePicker',
       filedName: 'dateTime',
       protoConfig: {
@@ -319,6 +354,7 @@ const ModalBasic = (props) => {
       type: 'select',
       filedName: 'userStatusSearch',
       display: 'side', // 与其他并排显示
+      isHide: (fields)=> fields.userStatus === '2', // 设置隐藏
       protoConfig: {
         showSearch: true
       },
@@ -374,6 +410,115 @@ const ModalBasic = (props) => {
           value: '4'
         }
       ],
+      onChange: (e) => {
+        console.log('选择更改', e)
+      }
+    },
+
+    {
+      label: '下拉树默认用法',
+      type: 'tree-select',
+      filedName: 'treeSelectName',
+      treeData: [
+        {
+          id: "jd01",
+          childPlaceLevel: "building",
+          childPlaceLevelName: "楼栋",
+          childrenPlace: [
+            {
+              id: "jd4hao",
+              childPlaceLevel: "floor",
+              childPlaceLevelName: "楼层",
+              childrenPlace: [
+                {
+                  id: "5d8723d5-90dd-4600-a9f3-7ab666acbfc7",
+                  parentId: "jd4hao",
+                  childPlaceLevel: "room",
+                  childPlaceLevelName: "房间",
+                  childrenPlace: [{
+                    childPlaceLevel: "",
+                    childPlaceLevelName: "",
+                    id: "ce6d7dea-1019-11ea-af93-0050568cb502",
+                    parentId: "5d8723d5-90dd-4600-a9f3-7ab666acbfc7",
+                    placeLevel: "room",
+                    placeLevelName: "房间",
+                    placeName: "水泵房",
+                    placeNo: "sb-01",
+                  }],
+                  placeLevel: "floor",
+                  placeLevelName: "楼层",
+                  placeName: "B3层",
+                  placeNo: "B3F",
+                }
+              ],
+              placeLevel: "building",
+              placeLevelName: "楼栋",
+              placeName: "1#,5#裙楼",
+            }
+          ],
+          placeAreaSize: 150000,
+          placeLevel: "area",
+          placeLevelName: "区域",
+          placeName: "厦门弘爱医院",
+          placeNo: "vann",
+        }
+      ],
+      treeOptionName: {children: 'childrenPlace', title: 'placeName', value: 'id'},
+      onChange: (e) => {
+        console.log('选择更改', e)
+      }
+    },
+    {
+      label: '下拉树显示完整名称',
+      type: 'tree-select',
+      filedName: 'treeSelectLevelName',
+      showFullLevel: true, // 显示完整级别名称
+      separator: '>',
+      treeData: [
+        {
+          id: "jd01",
+          childPlaceLevel: "building",
+          childPlaceLevelName: "楼栋",
+          childrenPlace: [
+            {
+              id: "jd4hao",
+              childPlaceLevel: "floor",
+              childPlaceLevelName: "楼层",
+              childrenPlace: [
+                {
+                  id: "5d8723d5-90dd-4600-a9f3-7ab666acbfc7",
+                  parentId: "jd4hao",
+                  childPlaceLevel: "room",
+                  childPlaceLevelName: "房间",
+                  childrenPlace: [{
+                    childPlaceLevel: "",
+                    childPlaceLevelName: "",
+                    id: "ce6d7dea-1019-11ea-af93-0050568cb502",
+                    parentId: "5d8723d5-90dd-4600-a9f3-7ab666acbfc7",
+                    placeLevel: "room",
+                    placeLevelName: "房间",
+                    placeName: "水泵房",
+                    placeNo: "sb-01",
+                  }],
+                  placeLevel: "floor",
+                  placeLevelName: "楼层",
+                  placeName: "B3层",
+                  placeNo: "B3F",
+                }
+              ],
+              placeLevel: "building",
+              placeLevelName: "楼栋",
+              placeName: "1#,5#裙楼",
+            }
+          ],
+          placeAreaSize: 150000,
+          placeLevel: "area",
+          placeLevelName: "区域",
+          placeName: "厦门弘爱医院",
+          placeNo: "vann",
+        }
+      ],
+      treeOptionName: {children: 'childrenPlace', title: 'placeName', value: 'id'},
       onChange: (e) => {
         console.log('选择更改', e)
       }
@@ -451,6 +596,9 @@ const ModalBasic = (props) => {
     <div className="demo-container">
       <div id="components-modal-demo-basic">
         <StandardFilter formItemGroup={controlFilters}
+                        ref={filterChildRef}
+                        // permissionCodes={['codeBtnDetail', 'codeBtnCreate']}
+                        buttonGroup={controlBtn}
                         onFilterSearch={handleFilterSearch} />
         <Button type="primary" onClick={showModal}>
           弹窗基础用法
@@ -568,8 +716,14 @@ const ModalBasic = (props) => {
           </div>
           <div style={{'textAlign': 'center', marginBottom: '10px'}}>更改弹窗配置:
             {/*<Button onClick={() => setModalSetting({...modalSetting, disabledAll: true})} type={'primary'}>禁用弹窗配置的表单</Button>*/}
+            <Button onClick={() => setModalSetting({...modalSetting, fieldStatus: null})} type={'primary'}>恢复默认</Button>
             <Button onClick={() => setModalSetting({...modalSetting, fieldStatus: 'disabled'})} type={'primary'}>禁用弹窗配置的表单</Button>
             <Button onClick={() => setModalSetting({...modalSetting, fieldStatus: 'viewOnly'})} type={'primary'}>弹窗仅显示详情信息</Button>
+          </div>
+          <div style={{'textAlign': 'center', marginBottom: '10px'}}>隐藏底部按钮:
+            {/*<Button onClick={() => setModalSetting({...modalSetting, disabledAll: true})} type={'primary'}>禁用弹窗配置的表单</Button>*/}
+            <Button onClick={() => setModalSetting({...modalSetting, hideFooter: true})} type={'primary'}>隐藏底部按钮</Button>
+            <Button onClick={() => setModalSetting({...modalSetting, hideFooter: false})} type={'primary'}>显示底部按钮</Button>
           </div>
         </StandardModal>
       </div>

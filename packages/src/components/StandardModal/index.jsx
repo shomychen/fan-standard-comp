@@ -7,9 +7,9 @@ import filedsValueFormat from '../FormComp/filedsValueFormat.js';
 
 class StandardModal extends React.Component {
   static getDerivedStateFromProps(nextProps) {
-    const { title, footer, footerRender, footerButtonGroup } = nextProps
+    const { title, footer, footerRender, footerButtonGroup , hideFooter} = nextProps
     return {
-      bodyMaxHeight: `${document.body.offsetHeight - (title ? 55 : 0) - ((footer || footerRender || footerButtonGroup) ? 55 : 0) - 160 - 32}px`,
+      bodyMaxHeight: `${document.body.offsetHeight - (title ? 55 : 0) - ((footer || footerRender || footerButtonGroup) ? 55 : 0) - 80*2 - 32 + (hideFooter ? 55 : 0)}px`,
     };
   }
 
@@ -29,10 +29,15 @@ class StandardModal extends React.Component {
     window.removeEventListener('resize', this.initBodyMaxHeight);
   }
 
+  componentDidUpdate(prevProps) {
+    const {hideFooter} = this.props;
+    if (hideFooter !== prevProps.hideFooter) this.initBodyMaxHeight()
+  }
+
   initBodyMaxHeight = () => {
-    const { title, footer, footerRender, footerButtonGroup } = this.props
+    const { title, footer, footerRender, footerButtonGroup, hideFooter } = this.props
     this.setState({
-      bodyMaxHeight: `${document.body.offsetHeight - (title ? 55 : 0) - ((footer || footerRender || footerButtonGroup) ? 55 : 0) - 160 - 32}px`,
+      bodyMaxHeight: `${document.body.offsetHeight - (title ? 55 : 0) - ((footer || footerRender || footerButtonGroup) ? 55 : 0) - 160 - 32 +( hideFooter ? 55 : 0)}px`,
     })
   }
   handleSubmit = (e) => {

@@ -1,0 +1,44 @@
+@import '~antd/lib/style/themes/default.less';
+:global{
+
+  .refactor-tree-select {
+    position: relative;
+    .ant-select {
+      z-index: 2;
+      .ant-select-selection {
+        background: transparent;
+      }
+      .ant-select-selection-selected-value {
+        display: none;
+      }
+
+      &.ant-select-disabled .ant-select-selection {
+        background: transparent;
+      }
+
+      //.ant-select-disabled.ant-select-single:not(.ant-select-customize-input) ~ .refactor-tree-select-extra{
+      //}
+    }
+    &.refactor-disabled .refactor-tree-select-extra {
+      background: @disabled-bg;
+      color: @disabled-color;
+    }
+    .refactor-tree-select-extra {
+      width: 100%;
+      background: @component-background;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      bottom: 0;
+      height: @input-height-base;
+      z-index: 1;
+      padding: 1px 22px 1px 8px;
+      line-height: @input-height-base - 2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      transform: translate(0, -50%);
+    }
+  }
+
+}

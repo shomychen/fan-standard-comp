@@ -162,26 +162,72 @@ const TableBiscDemo = (props) => {
     },
 
     {
-      title: '操作',
+      title: '操作配置',
       width: 120,
       align: 'center',
       type: 'action',
-      buttonGroup: [
-        {
-          code: 'codeBtnDetail', // 详情
-          isHide: (text, record, index) => index === 1,
-          fn: (text, record, index) => handleControlType('detail', text, index),
-        },
-        {
-          code: 'codeBtnUpdate', // 编辑
-          fn: (text, record, index) => handleControlType('edit', text, index),
-        },
-        {
-          code: 'codeBtnDelete', // 删除
-          fn: (text, record, index) => handleControlType('delete', text, index),
-          confirmText: text => `确定要删除菜单：${text.menuName}吗？`,
-        },
-      ],
+      buttonGroup: (text, record, rowIndex) => {
+        // console.log('列表参数', text, record, rowIndex)
+        if (rowIndex % 2 == 0) {
+          return [
+            {
+              code: 'codeBtnDelete', // 删除
+              fn: (text, record, index) => handleControlType('delete', text, index),
+              confirmText: text => `确定要删除菜单：${text.name}吗？`,
+            },
+            {
+              code: 'codeBtnDelete', // 删除
+              exName: '被隐藏',
+              isHide: (text, record, index)=> {
+                return true
+              },
+            },
+            {
+              code: 'codeBtnDelete', // 删除
+              exName: '被禁用',
+              disabled: (text, record, index)=> {
+                console.log('被禁用参数',text, record, index)
+                return true
+              },
+            },
+            {
+              render: ()=> <i>自定义结构</i>
+            }
+          ]
+        } else {
+          return [
+            {
+              code: 'codeBtnDetail', // 详情
+              fn: (text, record, index) => handleControlType('detail', text, index),
+            },
+            {
+              code: 'codeBtnUpdate', // 编辑
+              fn: (text, record, index) => handleControlType('edit', text, index),
+            },
+            {
+              code: 'codeBtnDelete', // 删除
+              fn: (text, record, index) => handleControlType('delete', text, index),
+              confirmText: text => `确定要删除菜单：${text.name}吗？`,
+            },
+          ]
+        }
+      }
+      // buttonGroup: [
+      //   {
+      //     code: 'codeBtnDetail', // 详情
+      //     isHide: (text, record, index) => index === 1,
+      //     fn: (text, record, index) => handleControlType('detail', text, index),
+      //   },
+      //   {
+      //     code: 'codeBtnUpdate', // 编辑
+      //     fn: (text, record, index) => handleControlType('edit', text, index),
+      //   },
+      //   {
+      //     code: 'codeBtnDelete', // 删除
+      //     fn: (text, record, index) => handleControlType('delete', text, index),
+      //     confirmText: text => `确定要删除菜单：${text.menuName}吗？`,
+      //   },
+      // ],
     },
   ];
 

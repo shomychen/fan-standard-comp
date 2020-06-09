@@ -26,12 +26,23 @@ const RenderItemGroup = (props) => {
   useEffect(() => {
     updateFormFields()
   }, [])
+
+  // 渲染隐藏指定控件
+  const itemIsHide = (isHide) => {
+    if (!isHide) return false
+    if (typeof isHide === 'function') {
+      return isHide(form ? form.getFieldsValue() : {}, form, fieldStatus)
+    }
+    return isHide
+  }
+
+
   if (itemGroup && Array.isArray(itemGroup)) {
     return <>
       {
         itemGroup.map((item, index) => {
           const { label, description, isHide, type, customRender, filedName, filedOptions, componentStyle, extra, preExtra } = item; // 当前可传参的配置值
-          if (isHide) return null
+          if (itemIsHide(isHide)) return null
           let formLayout = item.display === 'block' ? general.modalSize[size].formBlockLayout : general.modalSize[size].formLayout
           if (displayLayout) {
             // 如果未配置，则使用以下配置值

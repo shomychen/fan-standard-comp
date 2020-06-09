@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import _ from 'lodash';
 import classNames from 'classnames';
 import { Table, Card, Menu, Divider, Popconfirm, Icon, Dropdown } from 'antd';
-import { funcCode } from '../../data';
+import ButtonGroup from '../ButtonGroup'
 import './index.less';
 
 const StandardTable = React.forwardRef((props, ref) => {
@@ -17,7 +17,11 @@ const StandardTable = React.forwardRef((props, ref) => {
     }
   };
 
-  const { data = {}, rowKey, rowSelection, columns, hideOrderNumber, orderNumber = {}, className, emptyText, ...rest } = props;
+  const {
+    data = {}, rowKey, rowSelection, columns, hideOrderNumber, orderNumber = {}, className, emptyText,
+    codes,
+    permissionCodes, ...rest
+  } = props;
   let resetColumns = [{
     width: 58,
     align: 'center',
@@ -45,130 +49,36 @@ const StandardTable = React.forwardRef((props, ref) => {
       if (colItem.type === 'action') {
         colItem.width = colItem.width || (colItem.buttonGroup.length > 1 ? 120 : 80)
         colItem.align = 'center'
-        colItem.title = '操作'
+        colItem.title = colItem.title || '操作'
         colItem.key = 'control'
         // colItem.fixed = colItem.fixed || 'right'
         colItem.render = (text, record, rowIndex) => {
-          const btnIsHide = (isHide) => {
-            if (!isHide) return false
-            if (typeof isHide === 'function') {
-              return isHide(text, record, rowIndex)
-            }
-            return isHide
-          }
           // 按钮列表组
-          const renderButtonGroup = (buttonGroup) => {
-            buttonGroup = buttonGroup.filter(item => item && !btnIsHide(item.isHide)); // 排除隐藏isHide的数据
-            const btn = (bItem, index) => {
-              if (bItem.render) return bItem.render;
-              if (bItem.code && _.findIndex(funcCode.btnFuncCodes, (btnItem) => btnItem.code === bItem.code) !== -1) {
-                // 如果有配置code，则使用func.code.js里面配置的名称
-                bItem = Object.assign(bItem, funcCode.btnFuncCodes[_.findIndex(funcCode.btnFuncCodes, (btnItem) => btnItem.code === bItem.code)])
-              }
-              return (
-                <span key={bItem.code}>
-                  {
-                    index !== 0 && <Divider type="vertical" />
-                  }
-                  {
-                    bItem.code === 'codeBtnDelete' ?
-                      <Popconfirm
-                        placement="topRight"
-                        title={bItem.confirmText ? bItem.confirmText(text, record, rowIndex) : ''}
-                        icon={<Icon type="question-circle-o" />}
-                        onConfirm={bItem.fn ? () => bItem.fn(text, record, rowIndex) : null}
-                      >
-                        <a key={bItem.code}
-                           type={bItem.type ? bItem.type : 'primary'}
-                           icon={bItem.icon ? bItem.icon : ''}
-                           disabled={bItem.disabled}>{bItem.exName || bItem.name}</a>
-                      </Popconfirm>
-                      : <a
-                        key={bItem.code}
-                        type={bItem.type ? bItem.type : 'primary'}
-                        icon={bItem.icon ? bItem.icon : ''}
-                        disabled={bItem.disabled}
-                        style={btnIsHide(bItem.isHide) ? { display: 'none' } : {}}
-                        onClick={bItem.fn ? () => bItem.fn(text, record, rowIndex) : null}
-                      >
-                        {bItem.exName || bItem.name}
-                      </a>
-                  }
-                </span>);
-            };
-            const menu = (group) => {
-              return (
-                <Menu className="spec-table-dropdown">
-                  {
-                    group.map((gItem) => {
-                      if (gItem.code && _.findIndex(funcCode.btnFuncCodes, (btnItem) => btnItem.code === gItem.code) !== -1) {
-                        // 如果有配置code，则使用func.code.js里面配置的名称
-                        gItem = Object.assign(gItem, funcCode.btnFuncCodes[_.findIndex(funcCode.btnFuncCodes, (btnItem) => btnItem.code === gItem.code)])
-                      }
-                      return (
-                        <Menu.Item key={gItem.code} disabled={gItem.disabled}
-                                   style={btnIsHide(gItem.isHide) ? { display: 'none' } : {}}>
-                          {
-                            gItem.code === 'codeBtnDelete' ? <a disabled={gItem.disabled}
-                                                                onClick={gItem.fn ? () => {
-                                                                  setPopVisibleIndex(rowIndex)
-                                                                  setPopRow(gItem)
-                                                                } : null}>{gItem.exName || gItem.name}</a>
-                              : <a onClick={gItem.fn ? () => gItem.fn(text, record, rowIndex) : null}
-                                   disabled={gItem.disabled}>{gItem.exName || gItem.name}</a>
-                          }
-                        </Menu.Item>
-                      )
-                    })
-                  }
-                </Menu>
-              )
-            };
+          const renderTableButtonGroup = (buttonGroup) => {
+            if (!buttonGroup) return '-'
+            let recombinationGroup = [] // 重组数据
+            // 类型为数组
+            if (Array.isArray(buttonGroup)) recombinationGroup = buttonGroup
+            // 类型为方法
+            if (typeof buttonGroup === 'function') recombinationGroup = buttonGroup(text, record, rowIndex) // 方法返回数组结构
             // 判断是否是数组且长度大于0时 ？{如下结构渲染} ： {按buttonGroup返回的node渲染}
-            if (Array.isArray(buttonGroup)) {
-              // 判断提供数据长度是否大于3，如果超过3个，则后面从第4个开始会在dropdown组件中渲染
-              if (buttonGroup.length > 2) {
-                const forGroup = buttonGroup.slice(0, 1)
-                const forDrop = buttonGroup.slice(1)
-                return (
-                  <>
-                    {forGroup.map((fItem, index) => (index < 1) ? btn(fItem, index) : null)}
-                    {
-                      <Divider type="vertical" />
-                    }
-
-                    <Popconfirm
-                      placement="topRight"
-                      visible={popVisibleIndex === rowIndex}
-                      onCancel={() => setPopVisibleIndex('')}
-                      icon={<Icon type="question-circle-o" />}
-                      title={popRow.confirmText ? popRow.confirmText(text, record, rowIndex) : ''}
-                      onConfirm={popRow.fn ? () => {
-                        popRow.fn(text, record, rowIndex)
-                        setPopVisibleIndex('')
-                      } : null}
-                      trigger="click"
-                    >
-                      <Dropdown overlay={menu(forDrop)} placement="bottomRight">
-                        <a type="primary">更多<Icon type="down" /></a>
-                      </Dropdown>
-                    </Popconfirm>
-                  </>);
-              }
-              return (
-                <>
-                  {buttonGroup.map((bgItem, index) => btn(bgItem, index))}
-                </>);
+            if (Array.isArray(buttonGroup) || typeof buttonGroup === 'function') {
+              if (recombinationGroup.length === 0) return '-'
+              return <ButtonGroup type="text"
+                                  min={colItem.min || 2} // 配置按钮展示最少数量，其他的将会被折叠
+                                  options={recombinationGroup}
+                                  codes={codes}
+                                  permissionCodes={permissionCodes}
+                                  rowParams={{ text, record, rowIndex }} />
             }
-            return buttonGroup;
           }
           return <>
-            {renderButtonGroup(colItem.buttonGroup)}
+            {renderTableButtonGroup(colItem.buttonGroup)}
           </>
         }
       } else if (!colItem.render) {
         // 若未配置render，则给加个默认的返回方法
-        colItem.render = (text, record, rowIndex) => text || '-';
+        colItem.render = (text, record, rowIndex) => (text || text === 0) ? text : '-';
         return colItem;
       }
       return colItem

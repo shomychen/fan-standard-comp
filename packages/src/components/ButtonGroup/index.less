@@ -1,0 +1,27 @@
+@import '~antd/lib/style/themes/default.less';
+
+:global {
+  .spec-button-group {
+    display: inline-block;
+    vertical-align: middle;
+    .ant-btn + .ant-btn {
+      margin-left: @padding-sm;
+    }
+    .spec-button-group-text + .spec-button-group-text {
+      position: relative;
+      margin-left: @padding-sm;
+      &:before {
+        position: absolute;
+        content: '';
+        top: 50%;
+        left: -@padding-sm/2;
+        transform: translate(0, -50%);
+        display: inline-block;
+        height: .9em;
+        vertical-align: middle;
+        border-left: 1px solid @border-color-base;
+      }
+    }
+  }
+
+}
