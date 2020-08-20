@@ -6,7 +6,7 @@
       "code": "btnDelete",
       "funcUrl": "/system/menu",
       "status": "Y",
-      "sorts": "0",
+      "sorts": 1,
       "isIn": "N",
       "isShow": "N",
       "progress": "ing"

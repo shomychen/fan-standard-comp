@@ -9,10 +9,10 @@ const FormItem = Form.Item
 const RenderItemGroup = (props) => {
   const { form, itemGroup, size = 'md', fieldStatus = 'default', disabledAll = false, getFormFields, colSpan, displayLayout } = props
   const setColSpan = (display, modalSize) => {
-    if (display === 'block' || modalSize === 'xs') {
+    if (typeof display === 'object' || display === 'block' || modalSize === 'xs' || modalSize === 'sm') {
       return 24
     }
-    if (modalSize === 'lg') {
+    if (modalSize === 'lg' || modalSize === 'xlg') {
       return 8
     }
     return 12
@@ -41,9 +41,14 @@ const RenderItemGroup = (props) => {
     return <>
       {
         itemGroup.map((item, index) => {
-          const { label, description, isHide, type, customRender, filedName, filedOptions, componentStyle, extra, preExtra } = item; // 当前可传参的配置值
+          const { label, description, isHide, type, customRender, filedName, filedOptions, componentStyle, extra, preExtra, display = 'side'  } = item; // 当前可传参的配置值
           if (itemIsHide(isHide)) return null
           let formLayout = item.display === 'block' ? general.modalSize[size].formBlockLayout : general.modalSize[size].formLayout
+          if (typeof display === 'string') {
+            formLayout = display === 'block' ? general.modalSize[size].formBlockLayout : general.modalSize[size].formLayout
+          } else {
+            formLayout = item.display // 对象类型传值如： {labelCol: {span: 3},wrapperCol: {span: 8}}
+          }
           if (displayLayout) {
             // 如果未配置，则使用以下配置值
             formLayout = { ...displayLayout }

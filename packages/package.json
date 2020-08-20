@@ -1,6 +1,6 @@
 {
   "name": "fan-standard-comp",
-  "version": "1.0.50",
+  "version": "1.0.52",
   "description": "FZ standard-comp,basic of antd or other comp",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -17,6 +17,7 @@
   "author": "shomychen",
   "license": "ISC",
   "peerDependencies": {
+    "antd": "^3.26.9",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   },
@@ -41,7 +42,6 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
-    "antd": "^3.26.9",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
   }

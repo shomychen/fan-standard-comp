@@ -61,7 +61,18 @@ $ npm run build
 ` 2020-05-13`
 - FieldComponent
    - 优化 控件为禁用状态时， `placeholder`不显示值
-## 1.0.51（未发布）
+## 1.0.51
 ` 2020-05-18`
 - StandardTable
    - 优化 表格列返回值为0时，显示值0
+   - 优化 操作列按钮组配置扩展：禁用\隐藏\授权判断
+- StandardFilter
+   - 优化 按钮组配置扩展：禁用\隐藏\授权判断
+## 1.0.52
+` 2020-07-13`
+- RenderItemGroup
+   - 优化  控件参数配置`display`支持配置值为对象
+## 1.0.53(未发布)
+` 2020-08-05`
+- FieldComponent
+   - 优化 控件`select`相关的更改事件`onChange(value, Option)`参数返回值 `Option`累加当前选中数据的完整字段

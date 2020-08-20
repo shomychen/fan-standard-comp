@@ -134,10 +134,18 @@ const FieldComponent = React.forwardRef((props, ref) => {
       compContent = viewOnly ? setInputNumberValue(value) : (<InputNumber placeholder={(fieldStatus === 'disabled' || disabledAll || defaultProps.disabled) ? '' : (defaultProps.placeholder || placeholder || '请输入数字')} {...sortLimitRule} {...defaultProps} />)
       break;
     case 'select':
+      // 重置返回完整字段值
+      const resetResultOption = (Option) => {
+        if (!Option) return Option
+        if (Array.isArray(Option)) return selectOptions.filter(childOpt => Option.filter(optItem => childOpt.value === optItem.value).length > 0) // 数据为数组
+        return { ...Option, ...selectOptions.filter(childOpt => childOpt.value === Option.value)[0] }
+      }
       compContent = viewOnly ? setSelectValue(value) : (
         <Select allowClear placeholder={(fieldStatus === 'disabled' || disabledAll || defaultProps.disabled) ? '' : (defaultProps.placeholder || placeholder || `${defaultProps.showSearch ? '请输入选择' : '请选择'}`)}
                 filterOption={(input, option) => defaultProps.showSearch ? option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 : false}
                 {...defaultProps}
+          // onChange返回参数：累加当前选中包括其他字段值的数据
+                onChange={(value, Option) => onChange(value, resetResultOption(Option))}
         >
           {selectOptions.map((val) =>
             <Option value={val.value}

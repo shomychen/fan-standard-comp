@@ -4,6 +4,7 @@ import styles from './index.less';
 // import {StandardModal} from 'fan-standard-comp';
 import staticData from './data/staticData.json';
 import {general} from '../../../packages/src/data';
+import {funcCode} from '../../data/';
 import {StandardTable, StandardModal} from '../../../packages/src/';
 
 const FormItem = Form.Item;
@@ -17,6 +18,11 @@ const TableBiscDemo = (props) => {
       title: '功能名称',
       key: 'name',
       dataIndex: 'name',
+    },
+    {
+      title: '排序',
+      key: 'sorts',
+      dataIndex: 'sorts',
     },
     {
       title: '功能代码',
@@ -183,8 +189,8 @@ const TableBiscDemo = (props) => {
               },
             },
             {
-              code: 'codeBtnDelete', // 删除
-              exName: '被禁用',
+              code: 'codeBtnDetail', // 删除
+              exName: '被禁用详情',
               disabled: (text, record, index)=> {
                 console.log('被禁用参数',text, record, index)
                 return true
@@ -314,8 +320,11 @@ const TableBiscDemo = (props) => {
         data={{
           list: staticData.tableData
         }}
+        codes={funcCode.btnFuncCodes}
+        permissionCodes={["codeBtnCreate", "codeBtnRecord", "codeBtnDetail"]}
         // scroll={{x: 'max-content'}}
         // onChange={this.handleTableChange}
+        cods={[]}
       />
 
       <StandardModal

@@ -566,6 +566,16 @@ const ModalBasic = (props) => {
       }
     },
 
+    {
+      label: '自己定义栅格',
+      type: 'input',
+      filedName: 'customCol1',
+      // colSpan: 10,
+      display: {
+        labelCol: {span: 8},
+        wrapperCol: {span: 8}
+      },
+    },
     // {
     //   label: '上传图片',
     //   type: 'custom',
